@@ -535,17 +535,17 @@ function SidebarMenuButton({
       >
         {icon}
       </div>
-      <span className="w-full truncate whitespace-nowrap text-center font-sans text-[11px] font-medium text-foreground group-data-[collapsible=icon]:block group-data-[state=expanded]:hidden">
+      <span className="w-full truncate whitespace-nowrap text-center font-sans text-[11px] font-thin text-foreground group-data-[collapsible=icon]:block group-data-[state=expanded]:hidden">
         {label}
       </span>
-      <span className="w-full truncate group-data-[collapsible=icon]:hidden">
+      <span className="w-full truncate font-thin group-data-[collapsible=icon]:hidden">
         {label}
       </span>
     </>
   )
 
   const button =
-    Comp === "a" || Comp === Link ? (
+    Comp === Link ? (
       <Link {...(commonProps as React.ComponentProps<typeof Link>)} href={href!}>
         {content}
       </Link>
