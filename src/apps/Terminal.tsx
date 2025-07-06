@@ -30,7 +30,7 @@ export function Terminal({ onClose }: TerminalProps) {
     const initialY = window.innerHeight / 2 - 200;
     setPosition({
         x: initialX,
-        y: Math.max(HEADER_HEIGHT, initialY),
+        y: Math.max(0, initialY - HEADER_HEIGHT),
     });
     setIsClient(true);
   }, []);
@@ -125,7 +125,7 @@ export function Terminal({ onClose }: TerminalProps) {
       dragHandleClassName="drag-handle"
       className="z-20"
     >
-      <Card className="h-full flex flex-col bg-black/80 backdrop-blur-sm border-neutral-700 text-white rounded-lg overflow-hidden">
+      <Card className="h-full flex flex-col bg-black/80 backdrop-blur-sm border-neutral-700 text-neutral-300 rounded-lg overflow-hidden">
         <CardHeader className="drag-handle cursor-move flex flex-row items-center justify-between p-2 border-b border-neutral-700">
           <p className="text-xs text-neutral-400 pl-2">Terminal</p>
           <div className="flex items-center gap-1">
@@ -157,7 +157,7 @@ export function Terminal({ onClose }: TerminalProps) {
               type="text"
               value={input}
               onChange={handleInputChange}
-              className="bg-transparent border-none outline-none text-white w-full pl-2"
+              className="bg-transparent border-none outline-none text-neutral-300 w-full pl-2"
               autoComplete="off"
             />
           </form>
