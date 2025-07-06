@@ -1,19 +1,11 @@
 'use client';
 
-import {
-  SidebarHeader,
-  SidebarContent,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarMenuButton,
-  SidebarFooter,
-  SidebarProvider,
-} from "@/components/ui/sidebar"
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { HomeIcon, LayoutDashboard, Wallet, Plane, Book, Settings, User, Bell, Search, LogOut } from 'lucide-react'
 import React from "react";
 import { Rnd } from "react-rnd";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
     const [sidebarWidth, setSidebarWidth] = React.useState(288);
@@ -42,7 +34,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                         setSidebarWidth(parseInt(ref.style.width, 10));
                     }}
                     resizeHandleClasses={{
-                        right: 'w-px bg-border hover:bg-primary transition-colors cursor-col-resize'
+                        right: 'w-1 hover:bg-primary transition-colors cursor-col-resize'
                     }}
                     className="z-10"
                 >
@@ -51,62 +43,62 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                         data-collapsible={isCollapsed}
                         data-state={isCollapsed ? 'collapsed' : 'expanded'}
                     >
-                        <SidebarHeader className="flex items-center justify-between p-2">
+                        <div className="flex items-center justify-between p-2">
                         <div className="flex items-center gap-2 p-2 group-data-[state=collapsed]:justify-center">
                             <HomeIcon className="size-6 text-primary"/>
                             <span className="font-semibold text-lg group-data-[collapsible=true]:hidden">My App</span>
                         </div>
-                        </SidebarHeader>
-                        <SidebarContent>
-                        <SidebarMenu>
-                            <SidebarMenuItem>
-                            <SidebarMenuButton href="#" isActive={true} tooltip="Dashboard" className="group-data-[state=collapsed]:justify-center">
+                        </div>
+                        <div className="flex-1 overflow-y-auto">
+                        <ul className="flex flex-col gap-1 p-2">
+                            <li>
+                            <Button variant={!isCollapsed ? 'ghost' : 'ghost'} className={`w-full justify-start gap-2 ${isCollapsed ? 'justify-center' : ''}`} >
                                 <LayoutDashboard />
-                                <span className="group-data-[collapsible=true]:hidden">Dashboard</span>
-                            </SidebarMenuButton>
-                            </SidebarMenuItem>
-                            <SidebarMenuItem>
-                            <SidebarMenuButton href="#" tooltip="Finance" className="group-data-[state=collapsed]:justify-center">
+                                {!isCollapsed && <span >Dashboard</span>}
+                            </Button>
+                            </li>
+                            <li>
+                            <Button variant="ghost" className={`w-full justify-start gap-2 ${isCollapsed ? 'justify-center' : ''}`}>
                                 <Wallet />
-                                <span className="group-data-[collapsible=true]:hidden">Finance</span>
-                            </SidebarMenuButton>
-                            </SidebarMenuItem>
-                            <SidebarMenuItem>
-                            <SidebarMenuButton href="#" tooltip="Travel" className="group-data-[state=collapsed]:justify-center">
+                                {!isCollapsed && <span>Finance</span>}
+                            </Button>
+                            </li>
+                            <li>
+                            <Button variant="ghost" className={`w-full justify-start gap-2 ${isCollapsed ? 'justify-center' : ''}`}>
                                 <Plane />
-                                <span className="group-data-[collapsible=true]:hidden">Travel</span>
-                            </SidebarMenuButton>
-                            </SidebarMenuItem>
-                            <SidebarMenuItem>
-                            <SidebarMenuButton href="#" tooltip="Academic" className="group-data-[state=collapsed]:justify-center">
+                                {!isCollapsed && <span>Travel</span>}
+                            </Button>
+                            </li>
+                            <li>
+                            <Button variant="ghost" className={`w-full justify-start gap-2 ${isCollapsed ? 'justify-center' : ''}`}>
                                 <Book />
-                                <span className="group-data-[collapsible=true]:hidden">Academic</span>
-                            </SidebarMenuButton>
-                            </SidebarMenuItem>
-                        </SidebarMenu>
-                        </SidebarContent>
-                        <SidebarFooter className="p-2">
-                        <SidebarMenu>
-                            <SidebarMenuItem>
-                                <SidebarMenuButton href="#" tooltip="Account" className="group-data-[state=collapsed]:justify-center">
+                                {!isCollapsed && <span>Academic</span>}
+                            </Button>
+                            </li>
+                        </ul>
+                        </div>
+                        <div className="p-2">
+                        <ul className="flex flex-col gap-1">
+                            <li>
+                                <Button variant="ghost" className={`w-full justify-start gap-2 ${isCollapsed ? 'justify-center' : ''}`}>
                                 <User />
-                                <span className="group-data-[collapsible=true]:hidden">Account</span>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                            <SidebarMenuItem>
-                                <SidebarMenuButton href="#" tooltip="Settings" className="group-data-[state=collapsed]:justify-center">
+                                {!isCollapsed && <span>Account</span>}
+                                </Button>
+                            </li>
+                            <li>
+                                <Button variant="ghost" className={`w-full justify-start gap-2 ${isCollapsed ? 'justify-center' : ''}`}>
                                 <Settings />
-                                <span className="group-data-[collapsible=true]:hidden">Settings</span>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                            <SidebarMenuItem>
-                                <SidebarMenuButton href="#" tooltip="Log Out" className="group-data-[state=collapsed]:justify-center">
+                                {!isCollapsed && <span>Settings</span>}
+                                </Button>
+                            </li>
+                            <li>
+                                <Button variant="ghost" className={`w-full justify-start gap-2 ${isCollapsed ? 'justify-center' : ''}`}>
                                 <LogOut />
-                                <span className="group-data-[collapsible=true]:hidden">Log Out</span>
-                                </SidebarMenuButton>
-                            </SidebarMenuItem>
-                        </SidebarMenu>
-                        </SidebarFooter>
+                                {!isCollapsed && <span>Log Out</span>}
+                                </Button>
+                            </li>
+                        </ul>
+                        </div>
                     </div>
                 </Rnd>
                 <main
