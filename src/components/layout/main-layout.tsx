@@ -91,12 +91,12 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
               data-collapsible={isCollapsed}
               data-state={isCollapsed ? 'collapsed' : 'expanded'}
             >
-              <div className="flex-1 overflow-y-auto p-2 group-data-[state=collapsed]:flex group-data-[state=collapsed]:flex-col group-data-[state=collapsed]:items-center">
+              <div className="flex-1 overflow-y-auto group-data-[state=expanded]:p-2 group-data-[state=collapsed]:py-2 group-data-[state=collapsed]:flex group-data-[state=collapsed]:flex-col group-data-[state=collapsed]:items-center">
                 <SidebarMenu>
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild isActive={pathname === '/'} tooltip="Dashboard">
                       <Link href="/">
-                        <LayoutDashboard />
+                        <LayoutDashboard className="group-data-[state=collapsed]:size-8 transition-all" />
                         <span className="group-data-[collapsible=true]:hidden">
                           Dashboard
                         </span>
@@ -106,7 +106,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild isActive={pathname.startsWith('/ai')} tooltip="Compute">
                       <Link href="/ai">
-                        <Cpu />
+                        <Cpu className="group-data-[state=collapsed]:size-8 transition-all" />
                         <span className="group-data-[collapsible=true]:hidden">
                           Compute
                         </span>
@@ -115,7 +115,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                   </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton href="#" tooltip="Finance">
-                      <Wallet />
+                      <Wallet className="group-data-[state=collapsed]:size-8 transition-all" />
                       <span className="group-data-[collapsible=true]:hidden">
                         Finance
                       </span>
@@ -123,7 +123,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                   </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton href="#" tooltip="Travel">
-                      <Plane />
+                      <Plane className="group-data-[state=collapsed]:size-8 transition-all" />
                       <span className="group-data-[collapsible=true]:hidden">
                         Travel
                       </span>
@@ -131,7 +131,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                   </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton href="#" tooltip="Academic">
-                      <Book />
+                      <Book className="group-data-[state=collapsed]:size-8 transition-all" />
                       <span className="group-data-[collapsible=true]:hidden">
                         Academic
                       </span>
@@ -139,11 +139,11 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                   </SidebarMenuItem>
                 </SidebarMenu>
               </div>
-              <div className="p-2 group-data-[state=collapsed]:flex group-data-[state=collapsed]:flex-col group-data-[state=collapsed]:items-center">
+              <div className="group-data-[state=expanded]:p-2 group-data-[state=collapsed]:py-2 group-data-[state=collapsed]:flex group-data-[state=collapsed]:flex-col group-data-[state=collapsed]:items-center">
                 <SidebarMenu>
                   <SidebarMenuItem>
                     <SidebarMenuButton href="#" tooltip="Account">
-                      <User />
+                      <User className="group-data-[state=collapsed]:size-8 transition-all" />
                       <span className="group-data-[collapsible=true]:hidden">
                         Account
                       </span>
@@ -151,7 +151,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                   </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton href="#" tooltip="Settings">
-                      <Settings />
+                      <Settings className="group-data-[state=collapsed]:size-8 transition-all" />
                       <span className="group-data-[collapsible=true]:hidden">
                         Settings
                       </span>
@@ -159,7 +159,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                   </SidebarMenuItem>
                   <SidebarMenuItem>
                     <SidebarMenuButton href="#" tooltip="Log Out">
-                      <LogOut />
+                      <LogOut className="group-data-[state=collapsed]:size-8 transition-all" />
                       <span className="group-data-[collapsible=true]:hidden">
                         Log Out
                       </span>
