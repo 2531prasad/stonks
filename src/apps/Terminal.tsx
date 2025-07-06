@@ -21,9 +21,11 @@ export function Terminal({ onClose }: TerminalProps) {
 
   const [size, setSize] = useState({ width: 640, height: 400 });
   const [position, setPosition] = useState({ x: 0, y: HEADER_HEIGHT });
+  
+  const VISIBLE_WIDTH_SNAP = 80; // px
+  const VISIBLE_HEIGHT_SNAP = 40; // px, roughly the header height of the terminal
 
   useEffect(() => {
-    // Set initial position on the client to avoid SSR issues with `window`
     const initialX = window.innerWidth / 2 - 320;
     const initialY = window.innerHeight / 2 - 200;
     setPosition({
@@ -81,8 +83,14 @@ export function Terminal({ onClose }: TerminalProps) {
       size={size}
       position={position}
       onDragStop={(e, d) => {
-        const newX = Math.max(0, Math.min(d.x, window.innerWidth - size.width));
-        const newY = Math.max(HEADER_HEIGHT, Math.min(d.y, window.innerHeight - size.height));
+        const minX = -(size.width - VISIBLE_WIDTH_SNAP);
+        const maxX = window.innerWidth - VISIBLE_WIDTH_SNAP;
+        const minY = HEADER_HEIGHT;
+        const maxY = window.innerHeight - VISIBLE_HEIGHT_SNAP;
+
+        const newX = Math.max(minX, Math.min(d.x, maxX));
+        const newY = Math.max(minY, Math.min(d.y, maxY));
+        
         setPosition({ x: newX, y: newY });
       }}
       onResizeStop={(e, direction, ref, delta, newPosition) => {
@@ -93,9 +101,14 @@ export function Terminal({ onClose }: TerminalProps) {
           width: newWidth,
           height: newHeight,
         });
-        
-        const clampedX = Math.max(0, Math.min(newPosition.x, window.innerWidth - newWidth));
-        const clampedY = Math.max(HEADER_HEIGHT, Math.min(newPosition.y, window.innerHeight - newHeight));
+
+        const minX = -(newWidth - VISIBLE_WIDTH_SNAP);
+        const maxX = window.innerWidth - VISIBLE_WIDTH_SNAP;
+        const minY = HEADER_HEIGHT;
+        const maxY = window.innerHeight - VISIBLE_HEIGHT_SNAP;
+
+        const clampedX = Math.max(minX, Math.min(newPosition.x, maxX));
+        const clampedY = Math.max(minY, Math.min(newPosition.y, maxY));
 
         setPosition({
           x: clampedX,
