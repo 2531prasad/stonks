@@ -13,105 +13,8 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
 
     return (
         <SidebarProvider>
-            <div className="h-[100dvh] w-full bg-background">
-                <Rnd
-                    size={{ width: sidebarWidth, height: '100%' }}
-                    position={{ x: 0, y: 0 }}
-                    minWidth={40}
-                    maxWidth={400}
-                    disableDragging={true}
-                    enableResizing={{
-                        top: false,
-                        right: true,
-                        bottom: false,
-                        left: false,
-                        topRight: false,
-                        bottomRight: false,
-                        bottomLeft: false,
-                        topLeft: false,
-                    }}
-                    onResizeStop={(e, direction, ref, delta, position) => {
-                        setSidebarWidth(parseInt(ref.style.width, 10));
-                    }}
-                    resizeHandleStyles={{
-                        right: {
-                            width: '4px',
-                            right: '0px',
-                        }
-                    }}
-                    resizeHandleClasses={{
-                        right: 'hover:bg-primary transition-colors cursor-col-resize'
-                    }}
-                    className="z-10"
-                >
-                    <div
-                        className="group flex h-full flex-col border-r bg-background overflow-hidden"
-                        data-collapsible={isCollapsed}
-                        data-state={isCollapsed ? 'collapsed' : 'expanded'}
-                    >
-                        <div className="flex items-center justify-between p-2">
-                        <div className="flex items-center gap-2 p-2 group-data-[state=collapsed]:justify-center">
-                            <HomeIcon className="size-6 text-primary"/>
-                            <span className="font-semibold text-lg group-data-[collapsible=true]:hidden">My App</span>
-                        </div>
-                        </div>
-                        <div className="flex-1 overflow-y-auto">
-                            <SidebarMenu>
-                                <SidebarMenuItem>
-                                    <SidebarMenuButton href="#" isActive={true} tooltip="Dashboard">
-                                        <LayoutDashboard />
-                                        <span className="group-data-[collapsible=true]:hidden">Dashboard</span>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-                                <SidebarMenuItem>
-                                    <SidebarMenuButton href="#" tooltip="Finance">
-                                        <Wallet />
-                                        <span className="group-data-[collapsible=true]:hidden">Finance</span>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-                                <SidebarMenuItem>
-                                    <SidebarMenuButton href="#" tooltip="Travel">
-                                        <Plane />
-                                        <span className="group-data-[collapsible=true]:hidden">Travel</span>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-                                <SidebarMenuItem>
-                                    <SidebarMenuButton href="#" tooltip="Academic">
-                                        <Book />
-                                        <span className="group-data-[collapsible=true]:hidden">Academic</span>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-                            </SidebarMenu>
-                        </div>
-                        <div className="p-2">
-                            <SidebarMenu>
-                                <SidebarMenuItem>
-                                    <SidebarMenuButton href="#" tooltip="Account">
-                                        <User />
-                                        <span className="group-data-[collapsible=true]:hidden">Account</span>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-                                <SidebarMenuItem>
-                                    <SidebarMenuButton href="#" tooltip="Settings">
-                                        <Settings />
-                                        <span className="group-data-[collapsible=true]:hidden">Settings</span>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-                                <SidebarMenuItem>
-                                    <SidebarMenuButton href="#" tooltip="Log Out">
-                                        <LogOut />
-                                        <span className="group-data-[collapsible=true]:hidden">Log Out</span>
-                                    </SidebarMenuButton>
-                                </SidebarMenuItem>
-                            </SidebarMenu>
-                        </div>
-                    </div>
-                </Rnd>
-                <main
-                className="h-full flex flex-col transition-all duration-150 ease-in-out"
-                style={{ marginLeft: sidebarWidth }}
-                >
-                <header className="sticky top-0 z-20 flex h-14 shrink-0 items-center gap-4 border-b bg-background px-4 sm:px-6">
+            <div className="flex flex-col h-[100dvh] w-full bg-background">
+                <header className="flex h-14 shrink-0 items-center gap-4 border-b bg-background px-4 sm:px-6">
                     <div className="hidden md:block">
                         <h1 className="text-lg font-semibold">Dashboard</h1>
                     </div>
@@ -132,10 +35,109 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                         <span className="sr-only">User menu</span>
                     </Button>
                 </header>
-                <div className="flex-1 overflow-auto p-4 sm:p-6 bg-secondary/40">
-                    {children}
+
+                <div className="flex flex-1 overflow-hidden">
+                    <Rnd
+                        size={{ width: sidebarWidth, height: '100%' }}
+                        position={{ x: 0, y: 0 }}
+                        minWidth={40}
+                        maxWidth={400}
+                        disableDragging={true}
+                        enableResizing={{
+                            top: false,
+                            right: true,
+                            bottom: false,
+                            left: false,
+                            topRight: false,
+                            bottomRight: false,
+                            bottomLeft: false,
+                            topLeft: false,
+                        }}
+                        onResizeStop={(e, direction, ref, delta, position) => {
+                            setSidebarWidth(parseInt(ref.style.width, 10));
+                        }}
+                        resizeHandleStyles={{
+                            right: {
+                                width: '4px',
+                                right: '0px',
+                            }
+                        }}
+                        resizeHandleClasses={{
+                            right: 'hover:bg-primary transition-colors cursor-col-resize'
+                        }}
+                        className="z-10"
+                    >
+                        <div
+                            className="group flex h-full flex-col border-r bg-background overflow-hidden"
+                            data-collapsible={isCollapsed}
+                            data-state={isCollapsed ? 'collapsed' : 'expanded'}
+                        >
+                            <div className="flex items-center justify-between p-2">
+                            <div className="flex items-center gap-2 p-2 group-data-[state=collapsed]:justify-center">
+                                <HomeIcon className="size-6 text-primary"/>
+                                <span className="font-semibold text-lg group-data-[collapsible=true]:hidden">My App</span>
+                            </div>
+                            </div>
+                            <div className="flex-1 overflow-y-auto">
+                                <SidebarMenu>
+                                    <SidebarMenuItem>
+                                        <SidebarMenuButton href="#" isActive={true} tooltip="Dashboard">
+                                            <LayoutDashboard />
+                                            <span className="group-data-[collapsible=true]:hidden">Dashboard</span>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                    <SidebarMenuItem>
+                                        <SidebarMenuButton href="#" tooltip="Finance">
+                                            <Wallet />
+                                            <span className="group-data-[collapsible=true]:hidden">Finance</span>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                    <SidebarMenuItem>
+                                        <SidebarMenuButton href="#" tooltip="Travel">
+                                            <Plane />
+                                            <span className="group-data-[collapsible=true]:hidden">Travel</span>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                    <SidebarMenuItem>
+                                        <SidebarMenuButton href="#" tooltip="Academic">
+                                            <Book />
+                                            <span className="group-data-[collapsible=true]:hidden">Academic</span>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                </SidebarMenu>
+                            </div>
+                            <div className="p-2">
+                                <SidebarMenu>
+                                    <SidebarMenuItem>
+                                        <SidebarMenuButton href="#" tooltip="Account">
+                                            <User />
+                                            <span className="group-data-[collapsible=true]:hidden">Account</span>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                    <SidebarMenuItem>
+                                        <SidebarMenuButton href="#" tooltip="Settings">
+                                            <Settings />
+                                            <span className="group-data-[collapsible=true]:hidden">Settings</span>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                    <SidebarMenuItem>
+                                        <SidebarMenuButton href="#" tooltip="Log Out">
+                                            <LogOut />
+                                            <span className="group-data-[collapsible=true]:hidden">Log Out</span>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
+                                </SidebarMenu>
+                            </div>
+                        </div>
+                    </Rnd>
+                    <main
+                        className="flex-1 flex flex-col overflow-auto"
+                    >
+                        <div className="flex-1 p-4 sm:p-6 bg-secondary/40">
+                            {children}
+                        </div>
+                    </main>
                 </div>
-                </main>
             </div>
         </SidebarProvider>
     )
