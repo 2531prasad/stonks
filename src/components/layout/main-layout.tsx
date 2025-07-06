@@ -2,6 +2,7 @@
 
 import {
   Book,
+  Cpu,
   LayoutDashboard,
   LogOut,
   Plane,
@@ -94,6 +95,14 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                       <LayoutDashboard />
                       <span className="group-data-[collapsible=true]:hidden">
                         Dashboard
+                      </span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton href="#" tooltip="Compute">
+                      <Cpu />
+                      <span className="group-data-[collapsible=true]:hidden">
+                        Compute
                       </span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
