@@ -25,8 +25,7 @@ import {
   SidebarGroup,
 } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -35,6 +34,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useFont } from '@/components/font-provider';
+import {
+  CommandDialog,
+  CommandInput,
+  CommandList,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+  CommandSeparator,
+} from "@/components/ui/command"
 
 const mainNavItems = [
   { href: '/', icon: LayoutDashboard, label: 'Dashboard' },
@@ -55,6 +63,25 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
   const isCollapsed = sidebarWidth < 80;
   const pathname = usePathname();
   const { font, setFont } = useFont();
+  const [openCommand, setOpenCommand] = React.useState(false)
+  const router = useRouter()
+
+  React.useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault()
+        setOpenCommand((open) => !open)
+      }
+    }
+    document.addEventListener("keydown", down)
+    return () => document.removeEventListener("keydown", down)
+  }, [])
+
+  const runCommand = React.useCallback((command: () => unknown) => {
+    setOpenCommand(false)
+    command()
+  }, [])
+
 
   return (
     <SidebarProvider open={!isCollapsed}>
@@ -64,12 +91,17 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
             <h1 className="text-lg font-semibold">Dashboard</h1>
           </div>
           <div className="relative ml-auto flex-1 md:grow-0">
-            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search..."
-              className="w-full rounded-lg bg-secondary pl-8 md:w-[200px] lg:w-[320px]"
-            />
+             <Button
+                variant="outline"
+                onClick={() => setOpenCommand(true)}
+                className="w-full justify-start rounded-lg bg-secondary pl-8 text-sm text-muted-foreground md:w-[200px] lg:w-[320px]"
+              >
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4" />
+                Search...
+                <kbd className="pointer-events-none ml-auto hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
+                  <span className="text-xs">⌘</span>K
+                </kbd>
+              </Button>
           </div>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -181,6 +213,39 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
           </main>
         </div>
       </div>
+       <CommandDialog open={openCommand} onOpenChange={setOpenCommand}>
+        <CommandInput placeholder="Type a command or search..." />
+        <CommandList>
+          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandGroup heading="Links">
+            {mainNavItems.filter(item => item.href !== '#').map((item) => (
+              <CommandItem
+                key={item.href}
+                value={item.label}
+                onSelect={() => runCommand(() => router.push(item.href))}
+              >
+                <item.icon className="mr-2 h-4 w-4" />
+                <span>{item.label}</span>
+              </CommandItem>
+            ))}
+          </CommandGroup>
+          <CommandSeparator />
+          <CommandGroup heading="Theme">
+            <CommandItem onSelect={() => runCommand(() => setFont('azeret'))}>
+              <Palette className="mr-2 h-4 w-4" />
+              Set Font to Azeret Mono
+            </CommandItem>
+            <CommandItem onSelect={() => runCommand(() => setFont('victor'))}>
+              <Palette className="mr-2 h-4 w-4" />
+              Set Font to Victor Mono
+            </CommandItem>
+            <CommandItem onSelect={() => runCommand(() => setFont('noto'))}>
+              <Palette className="mr-2 h-4 w-4" />
+              Set Font to Noto Sans Mono
+            </CommandItem>
+          </CommandGroup>
+        </CommandList>
+      </CommandDialog>
     </SidebarProvider>
   );
 }
