@@ -82,13 +82,19 @@ export function Terminal({ onClose }: TerminalProps) {
     <Rnd
       size={size}
       position={position}
-      bounds={{ top: HEADER_HEIGHT }}
+      onDrag={(e, d) => {
+        // This makes the Rnd component "controlled" during drag.
+        // We clamp the y position to respect the header, making it a "hard" boundary.
+        setPosition({ x: d.x, y: Math.max(d.y, HEADER_HEIGHT) });
+      }}
       onDragStop={(e, d) => {
+        // Apply snapback for left, right, and bottom edges after drag stops.
         const minX = -(size.width - VISIBLE_WIDTH_SNAP);
         const maxX = window.innerWidth - VISIBLE_WIDTH_SNAP;
         const maxY = window.innerHeight - VISIBLE_HEIGHT_SNAP;
 
         const newX = Math.max(minX, Math.min(d.x, maxX));
+        // `d.y` is already constrained by `onDrag`, so we only need to check the bottom.
         const newY = Math.min(d.y, maxY);
         
         setPosition({ x: newX, y: newY });
@@ -102,12 +108,13 @@ export function Terminal({ onClose }: TerminalProps) {
           height: newHeight,
         });
 
+        // The position can change during resize, so we apply all constraints again.
         const minX = -(newWidth - VISIBLE_WIDTH_SNAP);
         const maxX = window.innerWidth - VISIBLE_WIDTH_SNAP;
         const maxY = window.innerHeight - VISIBLE_HEIGHT_SNAP;
 
         const clampedX = Math.max(minX, Math.min(newPosition.x, maxX));
-        const clampedY = Math.min(newPosition.y, maxY);
+        const clampedY = Math.max(HEADER_HEIGHT, Math.min(newPosition.y, maxY));
 
         setPosition({
           x: clampedX,
