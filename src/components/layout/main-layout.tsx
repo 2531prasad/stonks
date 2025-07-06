@@ -42,13 +42,13 @@ const footerNavItems = [
 ];
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
-  const [sidebarWidth, setSidebarWidth] = React.useState(280);
+  const [sidebarWidth, setSidebarWidth] = React.useState(50);
   const isCollapsed = sidebarWidth < 80;
   const pathname = usePathname();
 
   return (
     <SidebarProvider>
-      <div className="flex flex-col h-[100dvh] w-full bg-background">
+      <div className="flex flex-col h-full w-full bg-background">
         <header className="flex h-14 shrink-0 items-center gap-4 border-b bg-background px-4 sm:px-6">
           <div className="hidden md:block">
             <h1 className="text-lg font-semibold">Dashboard</h1>
@@ -100,7 +100,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
             resizeHandleClasses={{
               right: 'hover:bg-primary transition-colors cursor-col-resize',
             }}
-            className="z-10"
+            className="z-10 transition-all duration-200 ease-in-out"
           >
             <div
               className="group flex h-full flex-col border-r bg-background overflow-hidden"
