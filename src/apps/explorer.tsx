@@ -13,7 +13,7 @@ export function Explorer() {
   const sortedWindows = [...windows].sort((a, b) => a.zIndex - b.zIndex);
 
   return (
-    <>
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {sortedWindows.map((win) => {
         const appConfig = getAppConfig(win.appKey);
         if (!appConfig) return null;
@@ -42,6 +42,7 @@ export function Explorer() {
             bounds="parent"
             dragHandleClassName="drag-handle"
             style={{ zIndex: win.zIndex, position: 'absolute' }}
+            className="pointer-events-auto"
           >
             <Card 
               className="h-full w-full flex flex-col bg-black/80 backdrop-blur-sm border-neutral-700 text-neutral-300 rounded-lg overflow-hidden shadow-2xl"
@@ -76,6 +77,6 @@ export function Explorer() {
           </Rnd>
         );
       })}
-    </>
+    </div>
   );
 }
