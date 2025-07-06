@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Victor_Mono } from "next/font/google";
+import { Azeret_Mono } from "next/font/google";
 import "./globals.css";
 import { MainLayout } from "@/components/layout/main-layout";
 
-const victorMono = Victor_Mono({
+const azeretMono = Azeret_Mono({
   subsets: ["latin"],
-  variable: "--font-victor-mono",
+  variable: "--font-azeret-mono",
 });
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className={`${victorMono.variable} antialiased`}>
+      <body className={`${azeretMono.variable} antialiased`}>
         <MainLayout>{children}</MainLayout>
       </body>
     </html>
