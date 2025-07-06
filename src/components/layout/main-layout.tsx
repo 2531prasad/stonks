@@ -166,10 +166,10 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
             </div>
           </Rnd>
           <main
-            className="flex flex-col overflow-auto transition-all duration-200 ease-in-out h-full"
+            className="flex flex-col overflow-auto h-full transition-[margin] duration-200"
             style={{ marginLeft: `${sidebarWidth}px` }}
           >
-            <div className="flex-1 p-4 sm:p-6">
+            <div className="flex-1 p-4 sm:p-6 relative">
               {children}
             </div>
           </main>

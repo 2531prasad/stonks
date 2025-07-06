@@ -39,9 +39,9 @@ export function Explorer() {
             }}
             minWidth={320}
             minHeight={200}
-            bounds="main"
+            bounds="parent"
             dragHandleClassName="drag-handle"
-            style={{ zIndex: win.zIndex }}
+            style={{ zIndex: win.zIndex, position: 'absolute' }}
           >
             <Card 
               className="h-full w-full flex flex-col bg-black/80 backdrop-blur-sm border-neutral-700 text-neutral-300 rounded-lg overflow-hidden shadow-2xl"
