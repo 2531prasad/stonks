@@ -20,7 +20,7 @@ export function Terminal({ onClose }: TerminalProps) {
   const [isClient, setIsClient] = useState(false);
 
   const [size, setSize] = useState({ width: 640, height: 400 });
-  const [position, setPosition] = useState({ x: 0, y: HEADER_HEIGHT });
+  const [position, setPosition] = useState({ x: 0, y: 0 });
   
   const VISIBLE_WIDTH_SNAP = 80; // px
   const VISIBLE_HEIGHT_SNAP = 40; // px, roughly the header height of the terminal
@@ -83,15 +83,14 @@ export function Terminal({ onClose }: TerminalProps) {
       size={size}
       position={position}
       onDrag={(e, d) => {
-        // This makes the Rnd component "controlled" during drag.
-        // We clamp the y position to respect the header, making it a "hard" boundary.
-        setPosition({ x: d.x, y: Math.max(d.y, HEADER_HEIGHT) });
+        // We clamp the y position to respect the top of the work area.
+        setPosition({ x: d.x, y: Math.max(d.y, 0) });
       }}
       onDragStop={(e, d) => {
         // Apply snapback for left, right, and bottom edges after drag stops.
         const minX = -(size.width - VISIBLE_WIDTH_SNAP);
-        const maxX = window.innerWidth - VISIBLE_WIDTH_SNAP;
-        const maxY = window.innerHeight - VISIBLE_HEIGHT_SNAP;
+        const maxX = window.innerWidth - sidebarWidth - VISIBLE_WIDTH_SNAP;
+        const maxY = window.innerHeight - HEADER_HEIGHT - VISIBLE_HEIGHT_SNAP;
 
         const newX = Math.max(minX, Math.min(d.x, maxX));
         // `d.y` is already constrained by `onDrag`, so we only need to check the bottom.
@@ -110,11 +109,11 @@ export function Terminal({ onClose }: TerminalProps) {
 
         // The position can change during resize, so we apply all constraints again.
         const minX = -(newWidth - VISIBLE_WIDTH_SNAP);
-        const maxX = window.innerWidth - VISIBLE_WIDTH_SNAP;
-        const maxY = window.innerHeight - VISIBLE_HEIGHT_SNAP;
+        const maxX = window.innerWidth - sidebarWidth - VISIBLE_WIDTH_SNAP;
+        const maxY = window.innerHeight - HEADER_HEIGHT - VISIBLE_HEIGHT_SNAP;
 
         const clampedX = Math.max(minX, Math.min(newPosition.x, maxX));
-        const clampedY = Math.max(HEADER_HEIGHT, Math.min(newPosition.y, maxY));
+        const clampedY = Math.max(0, Math.min(newPosition.y, maxY));
 
         setPosition({
           x: clampedX,
@@ -167,3 +166,8 @@ export function Terminal({ onClose }: TerminalProps) {
     </Rnd>
   );
 }
+
+// This needs to be defined outside the component to be used in onDragStop/onResizeStop
+// We'll need a way to get this from the layout, but for now we'll hardcode it.
+// A more robust solution might involve a context provider for layout metrics.
+const sidebarWidth = 72;
