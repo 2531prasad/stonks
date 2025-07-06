@@ -28,7 +28,16 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                     minWidth={72}
                     maxWidth={400}
                     disableDragging={true}
-                    enableResizing={{ right: true }}
+                    enableResizing={{
+                        top: false,
+                        right: true,
+                        bottom: false,
+                        left: false,
+                        topRight: false,
+                        bottomRight: false,
+                        bottomLeft: false,
+                        topLeft: false,
+                    }}
                     onResizeStop={(e, direction, ref, delta, position) => {
                         setSidebarWidth(parseInt(ref.style.width, 10));
                     }}
