@@ -71,7 +71,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
           </Button>
         </header>
 
-        <div className="flex flex-1 overflow-hidden">
+        <div className="flex flex-1 overflow-hidden min-h-0">
           <Rnd
             size={{ width: sidebarWidth, height: '100%' }}
             position={{ x: 0, y: 0 }}
