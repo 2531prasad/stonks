@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
 import { Terminal } from '@/apps/Terminal';
+import { useDashboard } from '@/contexts/DashboardContext';
 
 export default function DashboardPage() {
-  const [isTerminalOpen, setIsTerminalOpen] = useState(true);
+  const { isTerminalOpen, setIsTerminalOpen } = useDashboard();
 
   return (
     <>

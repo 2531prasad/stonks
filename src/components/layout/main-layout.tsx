@@ -44,6 +44,7 @@ import {
 } from "@/components/ui/command"
 import { StarsBackground } from '@/components/ui/stars-background';
 import { ShootingStars } from '../ui/shooting-stars';
+import { useDashboard } from '@/contexts/DashboardContext';
 
 const mainNavItems = [
   { href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
@@ -66,6 +67,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
   const { font, setFont } = useFont();
   const [openCommand, setOpenCommand] = React.useState(false)
   const router = useRouter()
+  const { setIsTerminalOpen } = useDashboard();
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -231,6 +233,16 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                 <span>{item.label}</span>
               </CommandItem>
             ))}
+          </CommandGroup>
+          <CommandSeparator />
+          <CommandGroup heading="Actions">
+            <CommandItem
+              value="cmd"
+              onSelect={() => runCommand(() => setIsTerminalOpen(true))}
+            >
+              <Cpu className="mr-2 h-4 w-4" />
+              <span>Summon Terminal</span>
+            </CommandItem>
           </CommandGroup>
           <CommandSeparator />
           <CommandGroup heading="Theme">
