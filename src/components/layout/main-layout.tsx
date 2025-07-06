@@ -39,7 +39,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                     data-state={isCollapsed ? 'collapsed' : 'expanded'}
                   >
                     <SidebarHeader className="flex items-center justify-between p-2">
-                       <div className="flex items-center gap-2 p-2">
+                       <div className="flex items-center gap-2 p-2 group-data-[state=collapsed]:justify-center">
                           <HomeIcon className="size-6 text-primary"/>
                           <span className="font-semibold text-lg group-data-[collapsible=true]:hidden">My App</span>
                        </div>
@@ -47,25 +47,25 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                     <SidebarContent>
                       <SidebarMenu>
                         <SidebarMenuItem>
-                          <SidebarMenuButton href="#" isActive={true} tooltip="Dashboard">
+                          <SidebarMenuButton href="#" isActive={true} tooltip="Dashboard" className="group-data-[state=collapsed]:justify-center">
                             <LayoutDashboard />
                             <span className="group-data-[collapsible=true]:hidden">Dashboard</span>
                           </SidebarMenuButton>
                         </SidebarMenuItem>
                         <SidebarMenuItem>
-                          <SidebarMenuButton href="#" tooltip="Finance">
+                          <SidebarMenuButton href="#" tooltip="Finance" className="group-data-[state=collapsed]:justify-center">
                             <Wallet />
                             <span className="group-data-[collapsible=true]:hidden">Finance</span>
                           </SidebarMenuButton>
                         </SidebarMenuItem>
                         <SidebarMenuItem>
-                           <SidebarMenuButton href="#" tooltip="Travel">
+                           <SidebarMenuButton href="#" tooltip="Travel" className="group-data-[state=collapsed]:justify-center">
                             <Plane />
                             <span className="group-data-[collapsible=true]:hidden">Travel</span>
                           </SidebarMenuButton>
                         </SidebarMenuItem>
                         <SidebarMenuItem>
-                          <SidebarMenuButton href="#" tooltip="Academic">
+                          <SidebarMenuButton href="#" tooltip="Academic" className="group-data-[state=collapsed]:justify-center">
                             <Book />
                             <span className="group-data-[collapsible=true]:hidden">Academic</span>
                           </SidebarMenuButton>
@@ -75,19 +75,19 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                     <SidebarFooter className="p-2">
                       <SidebarMenu>
                           <SidebarMenuItem>
-                            <SidebarMenuButton href="#" tooltip="Account">
+                            <SidebarMenuButton href="#" tooltip="Account" className="group-data-[state=collapsed]:justify-center">
                               <User />
                               <span className="group-data-[collapsible=true]:hidden">Account</span>
                             </SidebarMenuButton>
                           </SidebarMenuItem>
                           <SidebarMenuItem>
-                             <SidebarMenuButton href="#" tooltip="Settings">
+                             <SidebarMenuButton href="#" tooltip="Settings" className="group-data-[state=collapsed]:justify-center">
                               <Settings />
                               <span className="group-data-[collapsible=true]:hidden">Settings</span>
                             </SidebarMenuButton>
                           </SidebarMenuItem>
                            <SidebarMenuItem>
-                             <SidebarMenuButton href="#" tooltip="Log Out">
+                             <SidebarMenuButton href="#" tooltip="Log Out" className="group-data-[state=collapsed]:justify-center">
                               <LogOut />
                               <span className="group-data-[collapsible=true]:hidden">Log Out</span>
                             </SidebarMenuButton>
