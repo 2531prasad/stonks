@@ -26,13 +26,13 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
               direction="horizontal" 
               className="h-full w-full"
               onLayout={(layout) => {
-                const isNowCollapsed = layout[0] < 15;
+                const isNowCollapsed = layout[0] < 4;
                 if(isNowCollapsed !== isCollapsed) {
                   setIsCollapsed(isNowCollapsed);
                 }
               }}
             >
-              <Panel defaultSize={20} minSize={10} maxSize={25} collapsible={true} collapsedSize={4}>
+              <Panel defaultSize={2} minSize={2} maxSize={10} collapsible={true} collapsedSize={0}>
                   <div
                     className="group flex h-full flex-col border-r"
                     data-collapsible={isCollapsed}
