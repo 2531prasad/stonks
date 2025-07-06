@@ -113,7 +113,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                     {mainNavItems.map((item) => (
                       <SidebarMenuItem key={item.label}>
                         <SidebarMenuButton
-                          asChild
+                          href={item.href}
                           isActive={
                             item.href === '#'
                               ? false
@@ -123,35 +123,26 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                           }
                           tooltip={item.label}
                         >
-                          <Link href={item.href}>
-                            <item.icon className="transition-all" />
-                            <span>
-                              {item.label}
-                            </span>
-                          </Link>
+                          <item.icon className="transition-all" />
+                          <span>{item.label}</span>
                         </SidebarMenuButton>
                       </SidebarMenuItem>
                     ))}
                   </SidebarMenu>
                 </SidebarGroup>
-                
-                  <SidebarGroup>
-                    <SidebarMenu>
-                      {footerNavItems.map((item) => (
-                        <SidebarMenuItem key={item.label}>
-                          <SidebarMenuButton asChild tooltip={item.label}>
-                            <Link href={item.href}>
-                              <item.icon className="transition-all" />
-                              <span>
-                                {item.label}
-                              </span>
-                            </Link>
-                          </SidebarMenuButton>
-                        </SidebarMenuItem>
-                      ))}
-                    </SidebarMenu>
-                  </SidebarGroup>
-                
+
+                <SidebarGroup>
+                  <SidebarMenu>
+                    {footerNavItems.map((item) => (
+                      <SidebarMenuItem key={item.label}>
+                        <SidebarMenuButton href={item.href} tooltip={item.label}>
+                          <item.icon className="transition-all" />
+                          <span>{item.label}</span>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                  </SidebarMenu>
+                </SidebarGroup>
               </SidebarContent>
             </div>
           </Rnd>
