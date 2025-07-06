@@ -48,7 +48,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <SidebarProvider>
-      <div className="flex flex-col h-full w-full bg-background">
+      <div className="flex flex-col h-screen w-full bg-background">
         <header className="flex h-14 shrink-0 items-center gap-4 border-b bg-background px-4 sm:px-6">
           <div className="hidden md:block">
             <h1 className="text-lg font-semibold">Dashboard</h1>
@@ -107,8 +107,8 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
               data-collapsible={isCollapsed ? 'icon' : undefined}
               data-state={isCollapsed ? 'collapsed' : 'expanded'}
             >
-              <SidebarContent>
-                <SidebarGroup>
+              <SidebarContent className="flex flex-col">
+                <SidebarGroup className="flex-1">
                   <SidebarMenu>
                     {mainNavItems.map((item) => (
                       <SidebarMenuItem key={item.label}>
@@ -134,7 +134,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                     ))}
                   </SidebarMenu>
                 </SidebarGroup>
-                <div className="mt-auto">
+                
                   <SidebarGroup>
                     <SidebarMenu>
                       {footerNavItems.map((item) => (
@@ -151,7 +151,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                       ))}
                     </SidebarMenu>
                   </SidebarGroup>
-                </div>
+                
               </SidebarContent>
             </div>
           </Rnd>
