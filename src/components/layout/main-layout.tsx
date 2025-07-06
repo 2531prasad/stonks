@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
-    const [sidebarWidth, setSidebarWidth] = React.useState(288);
+    const [sidebarWidth, setSidebarWidth] = React.useState(40);
     const isCollapsed = sidebarWidth < 80;
 
     return (
@@ -17,7 +17,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                 <Rnd
                     size={{ width: sidebarWidth, height: '100%' }}
                     position={{ x: 0, y: 0 }}
-                    minWidth={72}
+                    minWidth={40}
                     maxWidth={400}
                     disableDragging={true}
                     enableResizing={{
