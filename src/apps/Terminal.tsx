@@ -82,14 +82,14 @@ export function Terminal({ onClose }: TerminalProps) {
     <Rnd
       size={size}
       position={position}
+      bounds={{ top: HEADER_HEIGHT }}
       onDragStop={(e, d) => {
         const minX = -(size.width - VISIBLE_WIDTH_SNAP);
         const maxX = window.innerWidth - VISIBLE_WIDTH_SNAP;
-        const minY = HEADER_HEIGHT;
         const maxY = window.innerHeight - VISIBLE_HEIGHT_SNAP;
 
         const newX = Math.max(minX, Math.min(d.x, maxX));
-        const newY = Math.max(minY, Math.min(d.y, maxY));
+        const newY = Math.min(d.y, maxY);
         
         setPosition({ x: newX, y: newY });
       }}
@@ -104,11 +104,10 @@ export function Terminal({ onClose }: TerminalProps) {
 
         const minX = -(newWidth - VISIBLE_WIDTH_SNAP);
         const maxX = window.innerWidth - VISIBLE_WIDTH_SNAP;
-        const minY = HEADER_HEIGHT;
         const maxY = window.innerHeight - VISIBLE_HEIGHT_SNAP;
 
         const clampedX = Math.max(minX, Math.min(newPosition.x, maxX));
-        const clampedY = Math.max(minY, Math.min(newPosition.y, maxY));
+        const clampedY = Math.min(newPosition.y, maxY);
 
         setPosition({
           x: clampedX,
