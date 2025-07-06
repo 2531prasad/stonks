@@ -535,24 +535,24 @@ function SidebarMenuButton({
       >
         {icon}
       </div>
-      <span className="w-full truncate whitespace-nowrap text-center font-sans text-[11px] font-thin text-foreground group-data-[collapsible=icon]:block group-data-[state=expanded]:hidden">
+      <span className="w-full truncate whitespace-nowrap text-center font-sans text-[11px] font-light text-foreground group-data-[collapsible=icon]:block group-data-[state=expanded]:hidden">
         {label}
       </span>
-      <span className="w-full truncate font-thin group-data-[collapsible=icon]:hidden">
+      <span className="w-full truncate font-light group-data-[collapsible=icon]:hidden">
         {label}
       </span>
     </>
   )
 
   const button =
-    Comp === Link ? (
-      <Link {...(commonProps as React.ComponentProps<typeof Link>)} href={href!}>
-        {content}
-      </Link>
-    ) : (
+    Comp === "button" ? (
       <button {...(commonProps as React.ComponentProps<"button">)} type="button">
         {content}
       </button>
+    ) : (
+      <Link {...(commonProps as React.ComponentProps<typeof Link>)} href={href!}>
+        {content}
+      </Link>
     )
 
   if (!tooltip) {
@@ -568,8 +568,7 @@ function SidebarMenuButton({
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        {/* We need a div here because TooltipTrigger with asChild expects a single valid React child. */}
-        <div>{button}</div>
+        {button}
       </TooltipTrigger>
       <TooltipContent
         side="right"
