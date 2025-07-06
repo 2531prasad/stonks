@@ -42,7 +42,7 @@ const footerNavItems = [
 ];
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
-  const [sidebarWidth, setSidebarWidth] = React.useState(50);
+  const [sidebarWidth, setSidebarWidth] = React.useState(256);
   const isCollapsed = sidebarWidth < 80;
   const pathname = usePathname();
 
@@ -100,7 +100,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
             resizeHandleClasses={{
               right: 'hover:bg-primary transition-colors cursor-col-resize',
             }}
-            className="z-10 transition-all duration-200 ease-in-out"
+            className="z-10"
           >
             <div
               className="group flex h-full flex-col border-r bg-background overflow-hidden"
