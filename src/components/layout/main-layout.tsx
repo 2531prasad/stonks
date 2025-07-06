@@ -40,7 +40,7 @@ import { HeaderRight } from './HeaderRight';
 const mainNavItems = [
   { href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
   { href: '/ai', icon: Cpu, label: 'Compute' },
-  { href: '#', icon: Wallet, label: 'Finance' },
+  { href: '/finance', icon: Wallet, label: 'Finance' },
   { href: '#', icon: Plane, label: 'Travel' },
   { href: '#', icon: Book, label: 'Academic' },
 ];
@@ -166,8 +166,8 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
             </div>
           </Rnd>
           <main
-            className="flex flex-col overflow-auto h-full transition-[margin] duration-200"
-            style={{ marginLeft: `${sidebarWidth}px` }}
+            className="flex flex-col overflow-auto h-full"
+            style={{ marginLeft: `${sidebarWidth}px`, transition: 'margin-left 0.2s ease-in-out' }}
           >
             <div className="flex-1 p-4 sm:p-6 relative">
               {children}
