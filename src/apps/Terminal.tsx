@@ -81,14 +81,26 @@ export function Terminal({ onClose }: TerminalProps) {
       size={size}
       position={position}
       onDragStop={(e, d) => {
-        setPosition({ x: d.x, y: Math.max(HEADER_HEIGHT, d.y) });
+        const newX = Math.max(0, Math.min(d.x, window.innerWidth - size.width));
+        const newY = Math.max(HEADER_HEIGHT, Math.min(d.y, window.innerHeight - size.height));
+        setPosition({ x: newX, y: newY });
       }}
       onResizeStop={(e, direction, ref, delta, newPosition) => {
+        const newWidth = parseInt(ref.style.width, 10);
+        const newHeight = parseInt(ref.style.height, 10);
+        
         setSize({
-          width: parseInt(ref.style.width, 10),
-          height: parseInt(ref.style.height, 10),
+          width: newWidth,
+          height: newHeight,
         });
-        setPosition({ x: newPosition.x, y: Math.max(HEADER_HEIGHT, newPosition.y) });
+        
+        const clampedX = Math.max(0, Math.min(newPosition.x, window.innerWidth - newWidth));
+        const clampedY = Math.max(HEADER_HEIGHT, Math.min(newPosition.y, window.innerHeight - newHeight));
+
+        setPosition({
+          x: clampedX,
+          y: clampedY,
+        });
       }}
       minWidth={320}
       minHeight={200}
