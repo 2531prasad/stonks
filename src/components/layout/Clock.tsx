@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { NumberFlow } from '@number-flow/react';
+import NumberFlow from '@number-flow/react';
 
 const Clock = () => {
   const [time, setTime] = useState<Date | null>(null);
