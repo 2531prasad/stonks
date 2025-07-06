@@ -125,7 +125,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                         >
                           <Link href={item.href}>
                             <item.icon className="transition-all" />
-                            <span className="group-data-[collapsible=icon]:hidden">
+                            <span>
                               {item.label}
                             </span>
                           </Link>
@@ -142,7 +142,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                           <SidebarMenuButton asChild tooltip={item.label}>
                             <Link href={item.href}>
                               <item.icon className="transition-all" />
-                              <span className="group-data-[collapsible=icon]:hidden">
+                              <span>
                                 {item.label}
                               </span>
                             </Link>
