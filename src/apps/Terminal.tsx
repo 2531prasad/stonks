@@ -10,16 +10,28 @@ interface TerminalProps {
   onClose: () => void;
 }
 
+const HEADER_HEIGHT = 56; // Corresponds to h-14 in main-layout
+
 export function Terminal({ onClose }: TerminalProps) {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState<string[]>(['Welcome to the terminal!', 'Type `help` for a list of commands.']);
   const contentRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [isClient, setIsClient] = useState(false)
+  const [isClient, setIsClient] = useState(false);
+
+  const [size, setSize] = useState({ width: 640, height: 400 });
+  const [position, setPosition] = useState({ x: 0, y: HEADER_HEIGHT });
 
   useEffect(() => {
-    setIsClient(true)
-  }, [])
+    // Set initial position on the client to avoid SSR issues with `window`
+    const initialX = window.innerWidth / 2 - 320;
+    const initialY = window.innerHeight / 2 - 200;
+    setPosition({
+        x: initialX,
+        y: Math.max(HEADER_HEIGHT, initialY),
+    });
+    setIsClient(true);
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
@@ -66,11 +78,17 @@ export function Terminal({ onClose }: TerminalProps) {
 
   return (
     <Rnd
-      default={{
-        x: window.innerWidth / 2 - 320,
-        y: window.innerHeight / 2 - 200,
-        width: 640,
-        height: 400,
+      size={size}
+      position={position}
+      onDragStop={(e, d) => {
+        setPosition({ x: d.x, y: Math.max(HEADER_HEIGHT, d.y) });
+      }}
+      onResizeStop={(e, direction, ref, delta, newPosition) => {
+        setSize({
+          width: parseInt(ref.style.width, 10),
+          height: parseInt(ref.style.height, 10),
+        });
+        setPosition({ x: newPosition.x, y: Math.max(HEADER_HEIGHT, newPosition.y) });
       }}
       minWidth={320}
       minHeight={200}
