@@ -1,6 +1,6 @@
 'use client';
 
-import { HomeIcon, LayoutDashboard, Wallet, Plane, Book, Settings, User, Bell, Search, LogOut } from 'lucide-react'
+import { LayoutDashboard, Wallet, Plane, Book, Settings, User, Bell, Search, LogOut } from 'lucide-react'
 import React from "react";
 import { Rnd } from "react-rnd";
 import { SidebarProvider, SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar";
@@ -72,13 +72,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                             data-collapsible={isCollapsed}
                             data-state={isCollapsed ? 'collapsed' : 'expanded'}
                         >
-                            <div className="flex items-center justify-between p-2">
-                            <div className="flex items-center gap-2 p-2 group-data-[state=collapsed]:justify-center">
-                                <HomeIcon className="size-6 text-primary"/>
-                                <span className="font-semibold text-lg group-data-[collapsible=true]:hidden">My App</span>
-                            </div>
-                            </div>
-                            <div className="flex-1 overflow-y-auto">
+                            <div className="flex-1 overflow-y-auto p-2">
                                 <SidebarMenu>
                                     <SidebarMenuItem>
                                         <SidebarMenuButton href="#" isActive={true} tooltip="Dashboard">
@@ -132,6 +126,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                     </Rnd>
                     <main
                         className="flex-1 flex flex-col overflow-auto"
+                        style={{ marginLeft: `${sidebarWidth}px` }}
                     >
                         <div className="flex-1 p-4 sm:p-6 bg-secondary/40">
                             {children}
@@ -140,5 +135,5 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                 </div>
             </div>
         </SidebarProvider>
-    )
+    );
 }
