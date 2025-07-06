@@ -54,7 +54,7 @@ function useSidebar() {
 }
 
 function SidebarProvider({
-  defaultOpen = true,
+  defaultOpen = false,
   open: openProp,
   onOpenChange: setOpenProp,
   className,
@@ -468,7 +468,7 @@ function SidebarMenuItem({ className, ...props }: React.ComponentProps<"li">) {
 }
 
 const sidebarMenuButtonVariants = cva(
-  "peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md px-2 text-left outline-hidden ring-sidebar-ring transition-all duration-200 ease-in-out hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[active=false]:text-muted-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:h-auto group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-1 group-data-[data-active=false]:text-muted-foreground",
+  "peer/menu-button flex w-full items-center overflow-hidden rounded-md px-2 text-left outline-hidden ring-sidebar-ring transition-all duration-200 ease-in-out hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[active=false]:text-muted-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:h-auto group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-1 group-data-[data-active=false]:text-muted-foreground",
   {
     variants: {
       variant: {
@@ -508,10 +508,11 @@ function SidebarMenuButton({
   tooltip?: string | React.ComponentProps<typeof TooltipContent>
 }) {
   const { isMobile, state } = useSidebar()
-  const [icon, labelSpan] = React.Children.toArray(children)
-  const label = React.isValidElement(labelSpan)
-    ? labelSpan.props.children
-    : null
+  const [icon, ...labelSpans] = React.Children.toArray(children)
+  const label = labelSpans.map(child =>
+    React.isValidElement(child) ? child.props.children : child
+  ).join('')
+
 
   const Comp = href ? Link : "button"
   const commonProps = {
@@ -527,7 +528,7 @@ function SidebarMenuButton({
     <>
       <div
         className={cn(
-          "grid place-items-center rounded-md duration-100 group-hover/menu-item:scale-110",
+          "grid place-items-center rounded-md duration-100 group-hover/menu-item:scale-110 group-data-[state=expanded]:mr-2",
           "group-data-[collapsible=icon]:size-10",
           "data-[active=false]:text-muted-foreground"
         )}
