@@ -43,6 +43,8 @@ import {
   CommandItem,
   CommandSeparator,
 } from "@/components/ui/command"
+import { StarsBackground } from '@/components/ui/stars-background';
+import { ShootingStars } from '../ui/shooting-stars';
 
 const mainNavItems = [
   { href: '/', icon: LayoutDashboard, label: 'Dashboard' },
@@ -85,8 +87,10 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <SidebarProvider open={!isCollapsed}>
-      <div className="flex flex-col h-screen w-full bg-background">
-        <header className="flex h-14 shrink-0 items-center gap-4 border-b bg-background px-4 sm:px-6">
+      <div className="relative flex flex-col h-screen w-full bg-background">
+        <StarsBackground />
+        <ShootingStars />
+        <header className="flex h-14 shrink-0 items-center gap-4 border-b bg-transparent px-4 sm:px-6 z-10">
           <div className="hidden md:block">
             <h1 className="text-lg font-semibold">Dashboard</h1>
           </div>
@@ -128,7 +132,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
           </Button>
         </header>
 
-        <div className="relative flex flex-1 overflow-hidden min-h-0">
+        <div className="relative flex flex-1 overflow-hidden min-h-0 z-10">
           <Rnd
             size={{ width: sidebarWidth, height: '100%' }}
             position={{ x: 0, y: 0 }}
