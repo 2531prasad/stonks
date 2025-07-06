@@ -7,11 +7,9 @@ import {
   LogOut,
   Palette,
   Plane,
-  Search,
   Settings,
   User,
   Wallet,
-  Bell,
 } from 'lucide-react';
 import React from 'react';
 import { Rnd } from 'react-rnd';
@@ -23,15 +21,7 @@ import {
   SidebarContent,
   SidebarGroup,
 } from '@/components/ui/sidebar';
-import { Button } from '@/components/ui/button';
 import { usePathname, useRouter } from 'next/navigation';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { useFont } from '@/components/font-provider';
 import {
   CommandDialog,
@@ -45,6 +35,7 @@ import {
 import { StarsBackground } from '@/components/ui/stars-background';
 import { ShootingStars } from '../ui/shooting-stars';
 import { useDashboard } from '@/contexts/DashboardContext';
+import { HeaderRight } from './HeaderRight';
 
 const mainNavItems = [
   { href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
@@ -64,7 +55,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
   const [sidebarWidth, setSidebarWidth] = React.useState(72);
   const isCollapsed = sidebarWidth < 80;
   const pathname = usePathname();
-  const { font, setFont } = useFont();
+  const { setFont } = useFont();
   const [openCommand, setOpenCommand] = React.useState(false)
   const router = useRouter()
   const { setIsTerminalOpen } = useDashboard();
@@ -95,42 +86,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
           <div className="hidden md:block">
             <h1 className="text-lg font-semibold">Dashboard</h1>
           </div>
-          <div className="relative ml-auto flex-1 md:grow-0">
-             <Button
-                variant="outline"
-                onClick={() => setOpenCommand(true)}
-                className="w-full justify-start rounded-lg bg-secondary pl-8 text-sm text-muted-foreground md:w-[200px] lg:w-[320px]"
-              >
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4" />
-                Search...
-                <kbd className="pointer-events-none ml-auto hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
-                  <span className="text-xs">⌘</span>K
-                </kbd>
-              </Button>
-          </div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="rounded-full">
-                 <Palette className="h-5 w-5" />
-                 <span className="sr-only">Change font</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuRadioGroup value={font} onValueChange={(value) => setFont(value as any)}>
-                <DropdownMenuRadioItem value="azeret">Azeret Mono</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="victor">Victor Mono</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="noto">Noto Sans Mono</DropdownMenuRadioItem>
-              </DropdownMenuRadioGroup>
-            </DropdownMenuContent>
-          </DropdownMenu>
-          <Button variant="ghost" size="icon" className="rounded-full">
-            <Bell className="h-5 w-5" />
-            <span className="sr-only">Toggle notifications</span>
-          </Button>
-          <Button variant="ghost" size="icon" className="rounded-full">
-            <User className="h-5 w-5" />
-            <span className="sr-only">User menu</span>
-          </Button>
+          <HeaderRight setOpenCommand={setOpenCommand} />
         </header>
 
         <div className="relative flex flex-1 overflow-hidden min-h-0 z-10">
