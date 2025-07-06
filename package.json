@@ -11,6 +11,7 @@
   "dependencies": {
     "@genkit-ai/googleai": "^1.0.0",
     "@google-ai/generativelanguage": "^2.5.0",
+    "@number-flow/react": "^0.5.10",
     "@radix-ui/react-dialog": "^1.1.14",
     "@radix-ui/react-dropdown-menu": "^2.1.1",
     "@radix-ui/react-separator": "^1.1.7",

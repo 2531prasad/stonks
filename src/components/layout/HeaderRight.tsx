@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useFont } from '@/components/font-provider';
+import Clock from './Clock';
 
 interface HeaderRightProps {
   setOpenCommand: (open: boolean) => void;
@@ -66,6 +67,7 @@ export function HeaderRight({ setOpenCommand }: HeaderRightProps) {
         <User className="h-5 w-5" />
         <span className="sr-only">User menu</span>
       </Button>
+      <Clock />
     </>
   );
 }
