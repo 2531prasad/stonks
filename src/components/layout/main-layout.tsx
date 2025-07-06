@@ -2,7 +2,6 @@
 
 import {
   SidebarProvider,
-  Sidebar,
   SidebarHeader,
   SidebarContent,
   SidebarMenu,
@@ -16,17 +15,33 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { HomeIcon, LayoutDashboard, Wallet, Plane, Book, Settings, User, Bell, Search, LogOut } from 'lucide-react'
 import { PanelGroup, Panel, PanelResizeHandle } from "react-resizable-panels"
+import React from "react";
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
+    const [isCollapsed, setIsCollapsed] = React.useState(false);
+
     return (
         <SidebarProvider className="isolate">
-            <PanelGroup direction="horizontal" className="h-full w-full">
-              <Panel defaultSize={20} minSize={15} maxSize={25}>
-                  <Sidebar collapsible="icon" className="border-r">
+            <PanelGroup 
+              direction="horizontal" 
+              className="h-full w-full"
+              onLayout={(layout) => {
+                const isNowCollapsed = layout[0] < 15;
+                if(isNowCollapsed !== isCollapsed) {
+                  setIsCollapsed(isNowCollapsed);
+                }
+              }}
+            >
+              <Panel defaultSize={20} minSize={10} maxSize={25} collapsible={true} collapsedSize={4}>
+                  <div
+                    className="group flex h-full flex-col border-r"
+                    data-collapsible={isCollapsed}
+                    data-state={isCollapsed ? 'collapsed' : 'expanded'}
+                  >
                     <SidebarHeader className="flex items-center justify-between p-2">
                        <div className="flex items-center gap-2 p-2">
                           <HomeIcon className="size-6 text-primary"/>
-                          <span className="font-semibold text-lg group-data-[collapsible=icon]:hidden">My App</span>
+                          <span className="font-semibold text-lg group-data-[collapsible=true]:hidden">My App</span>
                        </div>
                     </SidebarHeader>
                     <SidebarContent>
@@ -34,25 +49,25 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                         <SidebarMenuItem>
                           <SidebarMenuButton href="#" isActive={true} tooltip="Dashboard">
                             <LayoutDashboard />
-                            <span>Dashboard</span>
+                            <span className="group-data-[collapsible=true]:hidden">Dashboard</span>
                           </SidebarMenuButton>
                         </SidebarMenuItem>
                         <SidebarMenuItem>
                           <SidebarMenuButton href="#" tooltip="Finance">
                             <Wallet />
-                            <span>Finance</span>
+                            <span className="group-data-[collapsible=true]:hidden">Finance</span>
                           </SidebarMenuButton>
                         </SidebarMenuItem>
                         <SidebarMenuItem>
                            <SidebarMenuButton href="#" tooltip="Travel">
                             <Plane />
-                            <span>Travel</span>
+                            <span className="group-data-[collapsible=true]:hidden">Travel</span>
                           </SidebarMenuButton>
                         </SidebarMenuItem>
                         <SidebarMenuItem>
                           <SidebarMenuButton href="#" tooltip="Academic">
                             <Book />
-                            <span>Academic</span>
+                            <span className="group-data-[collapsible=true]:hidden">Academic</span>
                           </SidebarMenuButton>
                         </SidebarMenuItem>
                       </SidebarMenu>
@@ -62,24 +77,24 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                           <SidebarMenuItem>
                             <SidebarMenuButton href="#" tooltip="Account">
                               <User />
-                              <span>Account</span>
+                              <span className="group-data-[collapsible=true]:hidden">Account</span>
                             </SidebarMenuButton>
                           </SidebarMenuItem>
                           <SidebarMenuItem>
                              <SidebarMenuButton href="#" tooltip="Settings">
                               <Settings />
-                              <span>Settings</span>
+                              <span className="group-data-[collapsible=true]:hidden">Settings</span>
                             </SidebarMenuButton>
                           </SidebarMenuItem>
                            <SidebarMenuItem>
                              <SidebarMenuButton href="#" tooltip="Log Out">
                               <LogOut />
-                              <span>Log Out</span>
+                              <span className="group-data-[collapsible=true]:hidden">Log Out</span>
                             </SidebarMenuButton>
                           </SidebarMenuItem>
                       </SidebarMenu>
                     </SidebarFooter>
-                  </Sidebar>
+                  </div>
               </Panel>
               <PanelResizeHandle className="w-px bg-border hover:bg-primary transition-colors" />
               <Panel minSize={50}>
