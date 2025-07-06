@@ -75,7 +75,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
           <Rnd
             size={{ width: sidebarWidth, height: '100%' }}
             position={{ x: 0, y: 0 }}
-            minWidth={50}
+            minWidth={72}
             maxWidth={400}
             disableDragging={true}
             enableResizing={{
