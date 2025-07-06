@@ -3,7 +3,7 @@
 import { HomeIcon, LayoutDashboard, Wallet, Plane, Book, Settings, User, Bell, Search, LogOut } from 'lucide-react'
 import React from "react";
 import { Rnd } from "react-rnd";
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
@@ -33,8 +33,14 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                     onResizeStop={(e, direction, ref, delta, position) => {
                         setSidebarWidth(parseInt(ref.style.width, 10));
                     }}
+                    resizeHandleStyles={{
+                        right: {
+                            width: '4px',
+                            right: '0px',
+                        }
+                    }}
                     resizeHandleClasses={{
-                        right: 'w-1 hover:bg-primary transition-colors cursor-col-resize'
+                        right: 'hover:bg-primary transition-colors cursor-col-resize'
                     }}
                     className="z-10"
                 >
@@ -50,54 +56,54 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                         </div>
                         </div>
                         <div className="flex-1 overflow-y-auto">
-                        <ul className="flex flex-col gap-1 p-2">
-                            <li>
-                            <Button variant={!isCollapsed ? 'ghost' : 'ghost'} className={`w-full justify-start gap-2 ${isCollapsed ? 'justify-center' : ''}`} >
-                                <LayoutDashboard />
-                                {!isCollapsed && <span >Dashboard</span>}
-                            </Button>
-                            </li>
-                            <li>
-                            <Button variant="ghost" className={`w-full justify-start gap-2 ${isCollapsed ? 'justify-center' : ''}`}>
-                                <Wallet />
-                                {!isCollapsed && <span>Finance</span>}
-                            </Button>
-                            </li>
-                            <li>
-                            <Button variant="ghost" className={`w-full justify-start gap-2 ${isCollapsed ? 'justify-center' : ''}`}>
-                                <Plane />
-                                {!isCollapsed && <span>Travel</span>}
-                            </Button>
-                            </li>
-                            <li>
-                            <Button variant="ghost" className={`w-full justify-start gap-2 ${isCollapsed ? 'justify-center' : ''}`}>
-                                <Book />
-                                {!isCollapsed && <span>Academic</span>}
-                            </Button>
-                            </li>
-                        </ul>
+                            <SidebarMenu>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton href="#" isActive={true} tooltip="Dashboard">
+                                        <LayoutDashboard />
+                                        <span className="group-data-[collapsible=true]:hidden">Dashboard</span>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton href="#" tooltip="Finance">
+                                        <Wallet />
+                                        <span className="group-data-[collapsible=true]:hidden">Finance</span>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton href="#" tooltip="Travel">
+                                        <Plane />
+                                        <span className="group-data-[collapsible=true]:hidden">Travel</span>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton href="#" tooltip="Academic">
+                                        <Book />
+                                        <span className="group-data-[collapsible=true]:hidden">Academic</span>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            </SidebarMenu>
                         </div>
                         <div className="p-2">
-                        <ul className="flex flex-col gap-1">
-                            <li>
-                                <Button variant="ghost" className={`w-full justify-start gap-2 ${isCollapsed ? 'justify-center' : ''}`}>
-                                <User />
-                                {!isCollapsed && <span>Account</span>}
-                                </Button>
-                            </li>
-                            <li>
-                                <Button variant="ghost" className={`w-full justify-start gap-2 ${isCollapsed ? 'justify-center' : ''}`}>
-                                <Settings />
-                                {!isCollapsed && <span>Settings</span>}
-                                </Button>
-                            </li>
-                            <li>
-                                <Button variant="ghost" className={`w-full justify-start gap-2 ${isCollapsed ? 'justify-center' : ''}`}>
-                                <LogOut />
-                                {!isCollapsed && <span>Log Out</span>}
-                                </Button>
-                            </li>
-                        </ul>
+                            <SidebarMenu>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton href="#" tooltip="Account">
+                                        <User />
+                                        <span className="group-data-[collapsible=true]:hidden">Account</span>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton href="#" tooltip="Settings">
+                                        <Settings />
+                                        <span className="group-data-[collapsible=true]:hidden">Settings</span>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                                <SidebarMenuItem>
+                                    <SidebarMenuButton href="#" tooltip="Log Out">
+                                        <LogOut />
+                                        <span className="group-data-[collapsible=true]:hidden">Log Out</span>
+                                    </SidebarMenuButton>
+                                </SidebarMenuItem>
+                            </SidebarMenu>
                         </div>
                     </div>
                 </Rnd>
