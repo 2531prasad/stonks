@@ -22,10 +22,13 @@ import {
 } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
   const [sidebarWidth, setSidebarWidth] = React.useState(50);
   const isCollapsed = sidebarWidth < 80;
+  const pathname = usePathname();
 
   return (
     <SidebarProvider>
@@ -91,19 +94,23 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
               <div className="flex-1 overflow-y-auto p-2 group-data-[state=collapsed]:flex group-data-[state=collapsed]:flex-col group-data-[state=collapsed]:items-center">
                 <SidebarMenu>
                   <SidebarMenuItem>
-                    <SidebarMenuButton href="#" isActive={true} tooltip="Dashboard">
-                      <LayoutDashboard />
-                      <span className="group-data-[collapsible=true]:hidden">
-                        Dashboard
-                      </span>
+                    <SidebarMenuButton asChild isActive={pathname === '/'} tooltip="Dashboard">
+                      <Link href="/">
+                        <LayoutDashboard />
+                        <span className="group-data-[collapsible=true]:hidden">
+                          Dashboard
+                        </span>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
-                    <SidebarMenuButton href="#" tooltip="Compute">
-                      <Cpu />
-                      <span className="group-data-[collapsible=true]:hidden">
-                        Compute
-                      </span>
+                    <SidebarMenuButton asChild isActive={pathname.startsWith('/ai')} tooltip="Compute">
+                      <Link href="/ai">
+                        <Cpu />
+                        <span className="group-data-[collapsible=true]:hidden">
+                          Compute
+                        </span>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                   <SidebarMenuItem>
