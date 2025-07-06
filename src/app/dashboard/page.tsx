@@ -1,14 +1,11 @@
 'use client';
 
-import { Terminal } from '@/apps/Terminal';
-import { useDashboard } from '@/contexts/DashboardContext';
+import { Explorer } from '@/apps/explorer';
 
 export default function DashboardPage() {
-  const { isTerminalOpen, setIsTerminalOpen } = useDashboard();
-
   return (
     <>
-      {isTerminalOpen && <Terminal onClose={() => setIsTerminalOpen(false)} />}
+      <Explorer />
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold">Dashboard</h1>
@@ -19,7 +16,7 @@ export default function DashboardPage() {
               A clean slate.
             </h3>
             <p className="text-sm text-muted-foreground">
-              Your dashboard is ready to build on. Try closing the terminal window.
+              Your dashboard is ready to build on. Try opening the terminal with ⌘K.
             </p>
           </div>
         </div>

@@ -34,7 +34,7 @@ import {
 } from "@/components/ui/command"
 import { StarsBackground } from '@/components/ui/stars-background';
 import { ShootingStars } from '../ui/shooting-stars';
-import { useDashboard } from '@/contexts/DashboardContext';
+import { useWindows } from '@/contexts/DashboardContext';
 import { HeaderRight } from './HeaderRight';
 
 const mainNavItems = [
@@ -58,7 +58,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
   const { setFont } = useFont();
   const [openCommand, setOpenCommand] = React.useState(false)
   const router = useRouter()
-  const { setIsTerminalOpen } = useDashboard();
+  const { openWindow } = useWindows();
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -166,7 +166,6 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
           </Rnd>
           <main
             className="flex-1 flex flex-col overflow-auto transition-all duration-200 ease-in-out"
-            style={{ marginLeft: `${sidebarWidth}px` }}
           >
             <div className="flex-1 p-4 sm:p-6">
               {children}
@@ -194,7 +193,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
           <CommandGroup heading="Actions">
             <CommandItem
               value="cmd"
-              onSelect={() => runCommand(() => setIsTerminalOpen(true))}
+              onSelect={() => runCommand(() => openWindow('terminal'))}
             >
               <Cpu className="mr-2 h-4 w-4" />
               <span>Summon Terminal</span>

@@ -3,7 +3,7 @@ import { Azeret_Mono, Victor_Mono, Noto_Sans_Mono } from "next/font/google";
 import "./globals.css";
 import { MainLayout } from "@/components/layout/main-layout";
 import { FontProvider } from "@/components/font-provider";
-import { DashboardProvider } from "@/contexts/DashboardContext";
+import { WindowsProvider } from "@/contexts/DashboardContext";
 
 const azeretMono = Azeret_Mono({
   subsets: ["latin"],
@@ -37,9 +37,9 @@ export default function RootLayout({
     <html lang="en" className={`${azeretMono.variable} ${victorMono.variable} ${notoSansMono.variable} dark`} suppressHydrationWarning>
       <body className="antialiased">
         <FontProvider>
-          <DashboardProvider>
+          <WindowsProvider>
             <MainLayout>{children}</MainLayout>
-          </DashboardProvider>
+          </WindowsProvider>
         </FontProvider>
       </body>
     </html>
