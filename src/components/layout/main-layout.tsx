@@ -22,7 +22,9 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
 
     return (
         <SidebarProvider className="isolate">
-            <PanelGroup 
+            <PanelGroup
+              id="main-layout"
+              autoSaveId="main-layout"
               direction="horizontal" 
               className="h-full w-full"
               onLayout={(layout) => {
@@ -32,7 +34,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                 }
               }}
             >
-              <Panel defaultSize={2} minSize={2} maxSize={10} collapsible={true} collapsedSize={0}>
+              <Panel id="sidebar" order={1} defaultSize={2} minSize={2} maxSize={10} collapsible={true} collapsedSize={0}>
                   <div
                     className="group flex h-full flex-col border-r"
                     data-collapsible={isCollapsed}
@@ -96,8 +98,8 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                     </SidebarFooter>
                   </div>
               </Panel>
-              <PanelResizeHandle className="w-px bg-border hover:bg-primary transition-colors" />
-              <Panel minSize={50}>
+              <PanelResizeHandle id="resize-handle" className="w-px bg-border hover:bg-primary transition-colors" />
+              <Panel id="main-content" order={2} minSize={50}>
                   <SidebarInset>
                       <header className="sticky top-0 z-20 flex h-14 items-center gap-4 border-b bg-background px-4 sm:px-6">
                           <SidebarTrigger className="md:hidden"/>
