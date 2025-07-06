@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -467,7 +468,7 @@ function SidebarMenuItem({ className, ...props }: React.ComponentProps<"li">) {
 }
 
 const sidebarMenuButtonVariants = cva(
-  "peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-hidden ring-sidebar-ring transition-all duration-200 ease-in-out hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[active=false]:text-muted-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:h-auto group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-1.5 group-data-[collapsible=icon]:px-0 group-data-[collapsible=icon]:py-2",
+  "peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md px-2 text-left text-sm outline-hidden ring-sidebar-ring transition-all duration-200 ease-in-out hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[active=false]:text-muted-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:h-auto group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-1.5 group-data-[collapsible=icon]:p-2 group-data-[collapsible=icon]:px-0",
   {
     variants: {
       variant: {
@@ -512,6 +513,7 @@ function SidebarMenuButton({
     ? labelSpan.props.children
     : null
 
+  const Comp = href ? Link : "button"
   const commonProps = {
     "data-slot": "sidebar-menu-button",
     "data-sidebar": "menu-button",
@@ -523,7 +525,12 @@ function SidebarMenuButton({
 
   const content = (
     <>
-      <div className="grid size-10 place-items-center rounded-md duration-100 [grid-area:1/-1] group-hover/menu-item:scale-110">
+      <div
+        className={cn(
+          "grid place-items-center rounded-md duration-100 group-hover/menu-item:scale-110",
+          "group-data-[collapsible=icon]:size-10"
+        )}
+      >
         {icon}
       </div>
       <span className="w-full truncate whitespace-nowrap text-center font-sans text-xs font-medium text-foreground group-data-[collapsible=icon]:block group-data-[state=expanded]:hidden">
@@ -535,14 +542,10 @@ function SidebarMenuButton({
     </>
   )
 
-  const button = href ? (
-    <Link href={href} {...commonProps}>
+  const button = (
+    <Comp {...commonProps} {...(href ? { href } : { type: "button" })}>
       {content}
-    </Link>
-  ) : (
-    <button type="button" {...commonProps}>
-      {content}
-    </button>
+    </Comp>
   )
 
   if (!tooltip) {
@@ -557,7 +560,10 @@ function SidebarMenuButton({
 
   return (
     <Tooltip>
-      <TooltipTrigger asChild>{button}</TooltipTrigger>
+      <TooltipTrigger asChild>
+        {/* We need a div here because TooltipTrigger with asChild expects a single valid React child. */}
+        <div>{button}</div>
+      </TooltipTrigger>
       <TooltipContent
         side="right"
         align="center"
