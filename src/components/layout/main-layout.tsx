@@ -158,7 +158,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
             </div>
           </Rnd>
           <main
-            className="flex-1 flex flex-col overflow-auto"
+            className="flex-1 flex flex-col overflow-auto transition-all duration-200 ease-in-out"
             style={{ marginLeft: `${sidebarWidth}px` }}
           >
             <div className="flex-1 p-4 sm:p-6 bg-secondary/40">
