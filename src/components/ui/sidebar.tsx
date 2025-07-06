@@ -468,7 +468,7 @@ function SidebarMenuItem({ className, ...props }: React.ComponentProps<"li">) {
 }
 
 const sidebarMenuButtonVariants = cva(
-  "peer/menu-button flex w-full items-center overflow-hidden rounded-md px-2 text-left outline-hidden ring-sidebar-ring transition-all duration-200 ease-in-out hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[active=false]:text-muted-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:h-auto group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-1 group-data-[data-active=false]:text-muted-foreground",
+  "peer/menu-button flex w-full items-center overflow-hidden rounded-md px-2 text-left outline-hidden ring-sidebar-ring transition-all duration-200 ease-in-out hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-data-[sidebar=menu-action]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground data-[active=false]:text-muted-foreground data-[state=open]:hover:bg-sidebar-accent data-[state=open]:hover:text-sidebar-accent-foreground group-data-[collapsible=icon]:h-auto group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:p-1",
   {
     variants: {
       variant: {
@@ -528,8 +528,9 @@ function SidebarMenuButton({
     <>
       <div
         className={cn(
-          "grid place-items-center rounded-md duration-100 group-hover/menu-item:scale-110 group-data-[state=expanded]:mr-2",
+          "grid place-items-center rounded-md duration-100 group-hover/menu-item:scale-110",
           "group-data-[collapsible=icon]:size-10",
+          "group-data-[state=expanded]:mr-2",
           "data-[active=false]:text-muted-foreground"
         )}
       >
@@ -538,7 +539,7 @@ function SidebarMenuButton({
       <span className="w-full truncate whitespace-nowrap text-center font-sans text-[11px] font-light text-foreground group-data-[collapsible=icon]:block group-data-[state=expanded]:hidden">
         {label}
       </span>
-      <span className="w-full truncate font-light group-data-[collapsible=icon]:hidden">
+      <span className="w-full truncate font-sans font-light group-data-[collapsible=icon]:hidden">
         {label}
       </span>
     </>
@@ -559,11 +560,7 @@ function SidebarMenuButton({
     return button
   }
 
-  if (typeof tooltip === "string") {
-    tooltip = {
-      children: tooltip,
-    }
-  }
+  const tooltipContent = typeof tooltip === 'string' ? { children: tooltip } : tooltip;
 
   return (
     <Tooltip>
@@ -574,7 +571,7 @@ function SidebarMenuButton({
         side="right"
         align="center"
         hidden={state !== "collapsed" || isMobile}
-        {...tooltip}
+        {...tooltipContent}
       />
     </Tooltip>
   )
