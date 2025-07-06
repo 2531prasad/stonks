@@ -89,7 +89,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
           <HeaderRight setOpenCommand={setOpenCommand} />
         </header>
 
-        <div className="relative flex flex-1 overflow-hidden min-h-0 z-10">
+        <div className="relative flex flex-1 overflow-hidden min-h-0">
           <Rnd
             size={{ width: sidebarWidth, height: '100%' }}
             position={{ x: 0, y: 0 }}
@@ -118,7 +118,8 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
             resizeHandleClasses={{
               right: 'hover:bg-primary transition-colors cursor-col-resize',
             }}
-            className="z-10"
+            className="z-20"
+            style={{ position: 'relative' }}
           >
             <div
               className="group flex h-full flex-col border-r bg-background overflow-hidden"
@@ -165,7 +166,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
             </div>
           </Rnd>
           <main
-            className="flex-1 flex flex-col overflow-auto transition-all duration-200 ease-in-out"
+            className="flex-1 flex flex-col overflow-auto transition-all duration-200 ease-in-out relative"
           >
             <div className="flex-1 p-4 sm:p-6">
               {children}
