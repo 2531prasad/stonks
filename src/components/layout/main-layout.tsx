@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -42,12 +43,12 @@ const footerNavItems = [
 ];
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
-  const [sidebarWidth, setSidebarWidth] = React.useState(256);
+  const [sidebarWidth, setSidebarWidth] = React.useState(72);
   const isCollapsed = sidebarWidth < 80;
   const pathname = usePathname();
 
   return (
-    <SidebarProvider>
+    <SidebarProvider open={!isCollapsed}>
       <div className="flex flex-col h-screen w-full bg-background">
         <header className="flex h-14 shrink-0 items-center gap-4 border-b bg-background px-4 sm:px-6">
           <div className="hidden md:block">
