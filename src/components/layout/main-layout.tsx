@@ -20,7 +20,6 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
 } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
@@ -135,26 +134,25 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
                     ))}
                   </SidebarMenu>
                 </SidebarGroup>
+                <div className="mt-auto">
+                  <SidebarGroup>
+                    <SidebarMenu>
+                      {footerNavItems.map((item) => (
+                        <SidebarMenuItem key={item.label}>
+                          <SidebarMenuButton asChild tooltip={item.label}>
+                            <Link href={item.href}>
+                              <item.icon className="transition-all" />
+                              <span className="group-data-[collapsible=icon]:hidden">
+                                {item.label}
+                              </span>
+                            </Link>
+                          </SidebarMenuButton>
+                        </SidebarMenuItem>
+                      ))}
+                    </SidebarMenu>
+                  </SidebarGroup>
+                </div>
               </SidebarContent>
-
-              <SidebarFooter>
-                <SidebarGroup>
-                  <SidebarMenu>
-                    {footerNavItems.map((item) => (
-                      <SidebarMenuItem key={item.label}>
-                        <SidebarMenuButton asChild tooltip={item.label}>
-                          <Link href={item.href}>
-                            <item.icon className="transition-all" />
-                            <span className="group-data-[collapsible=icon]:hidden">
-                              {item.label}
-                            </span>
-                          </Link>
-                        </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    ))}
-                  </SidebarMenu>
-                </SidebarGroup>
-              </SidebarFooter>
             </div>
           </Rnd>
           <main
