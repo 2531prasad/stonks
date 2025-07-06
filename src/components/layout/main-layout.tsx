@@ -19,14 +19,31 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
 } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
+const mainNavItems = [
+  { href: '/', icon: LayoutDashboard, label: 'Dashboard' },
+  { href: '/ai', icon: Cpu, label: 'Compute' },
+  { href: '#', icon: Wallet, label: 'Finance' },
+  { href: '#', icon: Plane, label: 'Travel' },
+  { href: '#', icon: Book, label: 'Academic' },
+];
+
+const footerNavItems = [
+  { href: '#', icon: User, label: 'Account' },
+  { href: '#', icon: Settings, label: 'Settings' },
+  { href: '#', icon: LogOut, label: 'Log Out' },
+];
+
 export function MainLayout({ children }: { children: React.ReactNode }) {
-  const [sidebarWidth, setSidebarWidth] = React.useState(50);
+  const [sidebarWidth, setSidebarWidth] = React.useState(280);
   const isCollapsed = sidebarWidth < 80;
   const pathname = usePathname();
 
@@ -88,85 +105,56 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
           >
             <div
               className="group flex h-full flex-col border-r bg-background overflow-hidden"
-              data-collapsible={isCollapsed}
+              data-collapsible={isCollapsed ? 'icon' : undefined}
               data-state={isCollapsed ? 'collapsed' : 'expanded'}
             >
-              <div className="flex-1 overflow-y-auto group-data-[state=expanded]:p-2 group-data-[state=collapsed]:py-2 group-data-[state=collapsed]:flex group-data-[state=collapsed]:flex-col group-data-[state=collapsed]:items-center">
-                <SidebarMenu>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild isActive={pathname === '/'} tooltip="Dashboard">
-                      <Link href="/">
-                        <LayoutDashboard className="group-data-[state=collapsed]:size-8 transition-all" />
-                        <span className="group-data-[collapsible=true]:hidden">
-                          Dashboard
-                        </span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild isActive={pathname.startsWith('/ai')} tooltip="Compute">
-                      <Link href="/ai">
-                        <Cpu className="group-data-[state=collapsed]:size-8 transition-all" />
-                        <span className="group-data-[collapsible=true]:hidden">
-                          Compute
-                        </span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton href="#" tooltip="Finance">
-                      <Wallet className="group-data-[state=collapsed]:size-8 transition-all" />
-                      <span className="group-data-[collapsible=true]:hidden">
-                        Finance
-                      </span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton href="#" tooltip="Travel">
-                      <Plane className="group-data-[state=collapsed]:size-8 transition-all" />
-                      <span className="group-data-[collapsible=true]:hidden">
-                        Travel
-                      </span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton href="#" tooltip="Academic">
-                      <Book className="group-data-[state=collapsed]:size-8 transition-all" />
-                      <span className="group-data-[collapsible=true]:hidden">
-                        Academic
-                      </span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                </SidebarMenu>
-              </div>
-              <div className="group-data-[state=expanded]:p-2 group-data-[state=collapsed]:py-2 group-data-[state=collapsed]:flex group-data-[state=collapsed]:flex-col group-data-[state=collapsed]:items-center">
-                <SidebarMenu>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton href="#" tooltip="Account">
-                      <User className="group-data-[state=collapsed]:size-8 transition-all" />
-                      <span className="group-data-[collapsible=true]:hidden">
-                        Account
-                      </span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton href="#" tooltip="Settings">
-                      <Settings className="group-data-[state=collapsed]:size-8 transition-all" />
-                      <span className="group-data-[collapsible=true]:hidden">
-                        Settings
-                      </span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                  <SidebarMenuItem>
-                    <SidebarMenuButton href="#" tooltip="Log Out">
-                      <LogOut className="group-data-[state=collapsed]:size-8 transition-all" />
-                      <span className="group-data-[collapsible=true]:hidden">
-                        Log Out
-                      </span>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                </SidebarMenu>
-              </div>
+              <SidebarContent>
+                <SidebarGroup>
+                  <SidebarMenu>
+                    {mainNavItems.map((item) => (
+                      <SidebarMenuItem key={item.label}>
+                        <SidebarMenuButton
+                          asChild
+                          isActive={
+                            item.href === '#'
+                              ? false
+                              : item.href === '/'
+                              ? pathname === '/'
+                              : pathname.startsWith(item.href)
+                          }
+                          tooltip={item.label}
+                        >
+                          <Link href={item.href}>
+                            <item.icon className="transition-all group-data-[state=collapsed]:size-6" />
+                            <span className="group-data-[collapsible=icon]:hidden">
+                              {item.label}
+                            </span>
+                          </Link>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                  </SidebarMenu>
+                </SidebarGroup>
+              </SidebarContent>
+
+              <SidebarFooter>
+                <SidebarGroup>
+                  <SidebarMenu>
+                    {footerNavItems.map((item) => (
+                      <SidebarMenuItem key={item.label}>
+                        <SidebarMenuButton asChild tooltip={item.label}>
+                          <Link href={item.href}>
+                            <item.icon className="transition-all group-data-[state=collapsed]:size-6" />
+                            <span className="group-data-[collapsible=icon]:hidden">
+                              {item.label}
+                            </span>
+                          </Link>
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                  </SidebarMenu>
+                </SidebarGroup>
+              </SidebarFooter>
             </div>
           </Rnd>
           <main
