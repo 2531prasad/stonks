@@ -6,6 +6,7 @@ import {
   Cpu,
   LayoutDashboard,
   LogOut,
+  Palette,
   Plane,
   Search,
   Settings,
@@ -26,7 +27,14 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { usePathname } from 'next/navigation';
-import Link from 'next/link';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { useFont } from '@/components/font-provider';
 
 const mainNavItems = [
   { href: '/', icon: LayoutDashboard, label: 'Dashboard' },
@@ -46,6 +54,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
   const [sidebarWidth, setSidebarWidth] = React.useState(72);
   const isCollapsed = sidebarWidth < 80;
   const pathname = usePathname();
+  const { font, setFont } = useFont();
 
   return (
     <SidebarProvider open={!isCollapsed}>
@@ -62,6 +71,21 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
               className="w-full rounded-lg bg-secondary pl-8 md:w-[200px] lg:w-[320px]"
             />
           </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="rounded-full">
+                 <Palette className="h-5 w-5" />
+                 <span className="sr-only">Change font</span>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuRadioGroup value={font} onValueChange={(value) => setFont(value as any)}>
+                <DropdownMenuRadioItem value="azeret">Azeret Mono</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="victor">Victor Mono</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="noto">Noto Sans Mono</DropdownMenuRadioItem>
+              </DropdownMenuRadioGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
           <Button variant="ghost" size="icon" className="rounded-full">
             <Bell className="h-5 w-5" />
             <span className="sr-only">Toggle notifications</span>
