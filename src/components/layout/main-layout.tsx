@@ -46,7 +46,7 @@ import { StarsBackground } from '@/components/ui/stars-background';
 import { ShootingStars } from '../ui/shooting-stars';
 
 const mainNavItems = [
-  { href: '/', icon: LayoutDashboard, label: 'Dashboard' },
+  { href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
   { href: '/ai', icon: Cpu, label: 'Compute' },
   { href: '#', icon: Wallet, label: 'Finance' },
   { href: '#', icon: Plane, label: 'Travel' },

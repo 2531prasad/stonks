@@ -15,6 +15,11 @@ export function Terminal({ onClose }: TerminalProps) {
   const [output, setOutput] = useState<string[]>(['Welcome to the terminal!', 'Type `help` for a list of commands.']);
   const contentRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [isClient, setIsClient] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
@@ -54,6 +59,10 @@ export function Terminal({ onClose }: TerminalProps) {
     }
     inputRef.current?.focus();
   }, [output]);
+
+  if (!isClient) {
+    return null
+  }
 
   return (
     <Rnd
