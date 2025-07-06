@@ -1,8 +1,8 @@
 'use client'
 
-import { Bar, BarChart, CartesianGrid, Line, LineChart, Pie, PieChart, ResponsiveContainer, XAxis, YAxis, Area, AreaChart } from "recharts"
+import { Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, Line, LineChart, Pie, PieChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart"
+import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent, ChartConfig } from "@/components/ui/chart"
 import { Explorer } from "@/apps/explorer"
 
 const lineChartData = [
@@ -13,6 +13,17 @@ const lineChartData = [
   { month: "May", desktop: 209, mobile: 130 },
   { month: "June", desktop: 214, mobile: 140 },
 ]
+
+const lineChartConfig = {
+  desktop: {
+    label: "Desktop",
+    color: "hsl(var(--chart-1))",
+  },
+  mobile: {
+    label: "Mobile",
+    color: "hsl(var(--chart-2))",
+  },
+} satisfies ChartConfig
 
 const barChartData = [
   { name: "Jan", total: Math.floor(Math.random() * 5000) + 1000 },
@@ -29,6 +40,14 @@ const barChartData = [
   { name: "Dec", total: Math.floor(Math.random() * 5000) + 1000 },
 ]
 
+const barChartConfig = {
+  total: {
+    label: "Total",
+    color: "hsl(var(--chart-1))",
+  },
+} satisfies ChartConfig
+
+
 const areaChartData = [
     { date: "2024-01-01", value: 1200 },
     { date: "2024-01-02", value: 1400 },
@@ -39,12 +58,26 @@ const areaChartData = [
     { date: "2024-01-07", value: 1800 },
 ]
 
+const areaChartConfig = {
+    value: {
+        label: "Value",
+        color: "hsl(var(--chart-1))",
+    }
+} satisfies ChartConfig
+
 const pieChartData = [
-  { name: 'Stocks', value: 400, fill: "var(--color-chart-1)" },
-  { name: 'Bonds', value: 300, fill: "var(--color-chart-2)" },
-  { name: 'Real Estate', value: 300, fill: "var(--color-chart-3)" },
-  { name: 'Cash', value: 200, fill: "var(--color-chart-4)" },
+  { asset: "stocks", value: 400 },
+  { asset: "bonds", value: 300 },
+  { asset: "realestate", value: 300 },
+  { asset: "cash", value: 200 },
 ]
+
+const pieChartConfig = {
+    stocks: { label: "Stocks", color: "hsl(var(--chart-1))" },
+    bonds: { label: "Bonds", color: "hsl(var(--chart-2))" },
+    realestate: { label: "Real Estate", color: "hsl(var(--chart-3))" },
+    cash: { label: "Cash", color: "hsl(var(--chart-4))" },
+} satisfies ChartConfig
 
 export default function FinancePage() {
   return (
@@ -61,7 +94,7 @@ export default function FinancePage() {
               <CardDescription>Monthly revenue breakdown for the last year.</CardDescription>
             </CardHeader>
             <CardContent>
-                <ChartContainer config={{}} className="h-[250px] w-full">
+                <ChartContainer config={barChartConfig} className="h-[250px] w-full">
                     <BarChart accessibilityLayer data={barChartData}>
                         <CartesianGrid vertical={false} />
                         <XAxis
@@ -73,7 +106,7 @@ export default function FinancePage() {
                         />
                         <YAxis />
                         <ChartTooltip content={<ChartTooltipContent />} />
-                        <Bar dataKey="total" fill="var(--color-primary)" radius={4} />
+                        <Bar dataKey="total" fill="var(--color-total)" radius={4} />
                     </BarChart>
                 </ChartContainer>
             </CardContent>
@@ -84,7 +117,7 @@ export default function FinancePage() {
               <CardDescription>Desktop vs. Mobile users over 6 months.</CardDescription>
             </CardHeader>
             <CardContent>
-                <ChartContainer config={{ desktop: { label: "Desktop", color: "hsl(var(--chart-1))" }, mobile: { label: "Mobile", color: "hsl(var(--chart-2))" } }} className="h-[250px] w-full">
+                <ChartContainer config={lineChartConfig} className="h-[250px] w-full">
                     <LineChart accessibilityLayer data={lineChartData} margin={{ left: 12, right: 12 }}>
                         <CartesianGrid vertical={false} />
                         <XAxis
@@ -109,11 +142,15 @@ export default function FinancePage() {
                 <CardDescription>Distribution of your investment portfolio.</CardDescription>
             </CardHeader>
             <CardContent>
-                <ChartContainer config={{}} className="h-[250px] w-full">
+                <ChartContainer config={pieChartConfig} className="h-[250px] w-full">
                     <PieChart>
-                        <ChartTooltip content={<ChartTooltipContent />} />
-                        <Pie data={pieChartData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} />
-                        <ChartLegend content={<ChartLegendContent />} />
+                        <ChartTooltip content={<ChartTooltipContent nameKey="value" />} />
+                        <Pie data={pieChartData} dataKey="value" nameKey="asset" cx="50%" cy="50%" outerRadius={100}>
+                            {pieChartData.map((entry) => (
+                                <Cell key={`cell-${entry.asset}`} fill={`var(--color-${entry.asset})`} />
+                            ))}
+                        </Pie>
+                        <ChartLegend content={<ChartLegendContent nameKey="asset" />} />
                     </PieChart>
                 </ChartContainer>
             </CardContent>
@@ -124,7 +161,7 @@ export default function FinancePage() {
                 <CardDescription>Market value fluctuation over the past week.</CardDescription>
             </CardHeader>
             <CardContent>
-                <ChartContainer config={{ value: { label: 'Value', color: 'hsl(var(--chart-1))' } }} className="h-[300px] w-full">
+                <ChartContainer config={areaChartConfig} className="h-[300px] w-full">
                 <AreaChart accessibilityLayer data={areaChartData} margin={{ left: 12, right: 12 }}>
                     <CartesianGrid vertical={false} />
                     <XAxis
@@ -168,7 +205,7 @@ export default function FinancePage() {
               <CardDescription>Monthly expenses breakdown.</CardDescription>
             </CardHeader>
             <CardContent>
-                <ChartContainer config={{}} className="h-[250px] w-full">
+                <ChartContainer config={barChartConfig} className="h-[250px] w-full">
                     <BarChart accessibilityLayer data={barChartData.slice(0, 6)} layout="vertical">
                         <CartesianGrid horizontal={false} />
                         <YAxis
@@ -181,7 +218,7 @@ export default function FinancePage() {
                         <XAxis type="number" hide />
                         <ChartTooltip content={<ChartTooltipContent />} />
                         <ChartLegend content={<ChartLegendContent />} />
-                        <Bar dataKey="total" fill="var(--color-primary)" radius={4} />
+                        <Bar dataKey="total" fill="var(--color-total)" radius={4} />
                     </BarChart>
                 </ChartContainer>
             </CardContent>
