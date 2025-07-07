@@ -156,7 +156,7 @@ export default function FinancePage() {
                         />
                         <YAxis/>
                         <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="dot" />} />
-                        <ChartLegend content={<ChartLegendContent />} />
+                        <ChartLegend content={(props) => <ChartLegendContent {...props} />} />
                         <Line dataKey="desktop" type="monotone" stroke="var(--color-desktop)" strokeWidth={2} dot={false} />
                         <Line dataKey="mobile" type="monotone" stroke="var(--color-mobile)" strokeWidth={2} dot={false} />
                     </LineChart>
@@ -173,7 +173,7 @@ export default function FinancePage() {
                     <PieChart>
                         <ChartTooltip content={<ChartTooltipContent nameKey="value" />} />
                         <Pie data={pieChartData} dataKey="value" nameKey="asset" cx="50%" cy="50%" outerRadius={100} />
-                        <ChartLegend content={<ChartLegendContent nameKey="asset" />} />
+                        <ChartLegend content={(props) => <ChartLegendContent {...props} nameKey="asset" />} />
                     </PieChart>
                 </ChartContainer>
             </CardContent>
@@ -240,7 +240,7 @@ export default function FinancePage() {
                         />
                         <XAxis type="number" hide />
                         <ChartTooltip content={<ChartTooltipContent />} />
-                        <ChartLegend content={<ChartLegendContent />} />
+                        <ChartLegend content={(props) => <ChartLegendContent {...props} />} />
                         <Bar dataKey="total" fill="var(--color-total)" radius={4} />
                     </BarChart>
                 </ChartContainer>
