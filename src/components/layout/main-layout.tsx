@@ -121,7 +121,7 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
               bottomLeft: false,
               topLeft: false,
             }}
-            onResizeStop={(_e, _direction, ref, _delta, _position) => {
+            onResizeStop={(_e, _direction, ref) => {
               setSidebarWidth(parseInt(ref.style.width, 10));
             }}
             resizeHandleStyles={{

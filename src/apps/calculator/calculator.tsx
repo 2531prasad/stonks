@@ -1,4 +1,3 @@
-
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -28,7 +27,7 @@ export function Calculator() {
         return 'Error';
       }
       return result.toString();
-    } catch (_error) {
+    } catch {
       return 'Error';
     }
   };
