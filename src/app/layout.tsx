@@ -3,7 +3,7 @@ import { Azeret_Mono, Victor_Mono, Noto_Sans_Mono } from "next/font/google";
 import "./globals.css";
 import { MainLayout } from "@/components/layout/main-layout";
 import { FontProvider } from "@/components/font-provider";
-import { WindowsProvider } from "@/contexts/DashboardContext";
+import { WindowsProvider } from "@/contexts/WindowsContext";
 
 const azeretMono = Azeret_Mono({
   subsets: ["latin"],

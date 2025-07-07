@@ -34,7 +34,7 @@ import {
 } from "@/components/ui/command"
 import { StarsBackground } from '@/components/ui/stars-background';
 import { ShootingStars } from '../ui/shooting-stars';
-import { useWindows } from '@/contexts/DashboardContext';
+import { useWindows } from '@/contexts/WindowsContext';
 import { HeaderRight } from './HeaderRight';
 
 const mainNavItems = [

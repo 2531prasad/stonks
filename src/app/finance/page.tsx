@@ -4,15 +4,7 @@ import { Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, Line, LineChart, P
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent, ChartConfig } from "@/components/ui/chart"
 import { Explorer } from "@/apps/explorer"
-
-const lineChartData = [
-  { month: "January", desktop: 186, mobile: 80 },
-  { month: "February", desktop: 305, mobile: 200 },
-  { month: "March", desktop: 237, mobile: 120 },
-  { month: "April", desktop: 73, mobile: 190 },
-  { month: "May", desktop: 209, mobile: 130 },
-  { month: "June", desktop: 214, mobile: 140 },
-]
+import React from "react"
 
 const lineChartConfig = {
   desktop: {
@@ -25,21 +17,6 @@ const lineChartConfig = {
   },
 } satisfies ChartConfig
 
-const barChartData = [
-  { name: "Jan", total: Math.floor(Math.random() * 5000) + 1000 },
-  { name: "Feb", total: Math.floor(Math.random() * 5000) + 1000 },
-  { name: "Mar", total: Math.floor(Math.random() * 5000) + 1000 },
-  { name: "Apr", total: Math.floor(Math.random() * 5000) + 1000 },
-  { name: "May", total: Math.floor(Math.random() * 5000) + 1000 },
-  { name: "Jun", total: Math.floor(Math.random() * 5000) + 1000 },
-  { name: "Jul", total: Math.floor(Math.random() * 5000) + 1000 },
-  { name: "Aug", total: Math.floor(Math.random() * 5000) + 1000 },
-  { name: "Sep", total: Math.floor(Math.random() * 5000) + 1000 },
-  { name: "Oct", total: Math.floor(Math.random() * 5000) + 1000 },
-  { name: "Nov", total: Math.floor(Math.random() * 5000) + 1000 },
-  { name: "Dec", total: Math.floor(Math.random() * 5000) + 1000 },
-]
-
 const barChartConfig = {
   total: {
     label: "Total",
@@ -47,30 +24,12 @@ const barChartConfig = {
   },
 } satisfies ChartConfig
 
-
-const areaChartData = [
-    { date: "2024-01-01", value: 1200 },
-    { date: "2024-01-02", value: 1400 },
-    { date: "2024-01-03", value: 1300 },
-    { date: "2024-01-04", value: 1500 },
-    { date: "2024-01-05", value: 1700 },
-    { date: "2024-01-06", value: 1600 },
-    { date: "2024-01-07", value: 1800 },
-]
-
 const areaChartConfig = {
     value: {
         label: "Value",
         color: "hsl(var(--chart-1))",
     }
 } satisfies ChartConfig
-
-const pieChartData = [
-  { asset: "stocks", value: 400 },
-  { asset: "bonds", value: 300 },
-  { asset: "realestate", value: 300 },
-  { asset: "cash", value: 200 },
-]
 
 const pieChartConfig = {
     stocks: { label: "Stocks", color: "hsl(var(--chart-1))" },
@@ -80,6 +39,51 @@ const pieChartConfig = {
 } satisfies ChartConfig
 
 export default function FinancePage() {
+  const [barChartData, setBarChartData] = React.useState<any[]>([]);
+  const [lineChartData, setLineChartData] = React.useState<any[]>([]);
+  const [areaChartData, setAreaChartData] = React.useState<any[]>([]);
+  const [pieChartData, setPieChartData] = React.useState<any[]>([]);
+
+  React.useEffect(() => {
+    setBarChartData([
+      { name: "Jan", total: Math.floor(Math.random() * 5000) + 1000 },
+      { name: "Feb", total: Math.floor(Math.random() * 5000) + 1000 },
+      { name: "Mar", total: Math.floor(Math.random() * 5000) + 1000 },
+      { name: "Apr", total: Math.floor(Math.random() * 5000) + 1000 },
+      { name: "May", total: Math.floor(Math.random() * 5000) + 1000 },
+      { name: "Jun", total: Math.floor(Math.random() * 5000) + 1000 },
+      { name: "Jul", total: Math.floor(Math.random() * 5000) + 1000 },
+      { name: "Aug", total: Math.floor(Math.random() * 5000) + 1000 },
+      { name: "Sep", total: Math.floor(Math.random() * 5000) + 1000 },
+      { name: "Oct", total: Math.floor(Math.random() * 5000) + 1000 },
+      { name: "Nov", total: Math.floor(Math.random() * 5000) + 1000 },
+      { name: "Dec", total: Math.floor(Math.random() * 5000) + 1000 },
+    ]);
+    setLineChartData([
+      { month: "January", desktop: 186, mobile: 80 },
+      { month: "February", desktop: 305, mobile: 200 },
+      { month: "March", desktop: 237, mobile: 120 },
+      { month: "April", desktop: 73, mobile: 190 },
+      { month: "May", desktop: 209, mobile: 130 },
+      { month: "June", desktop: 214, mobile: 140 },
+    ]);
+    setAreaChartData([
+      { date: "2024-01-01", value: 1200 },
+      { date: "2024-01-02", value: 1400 },
+      { date: "2024-01-03", value: 1300 },
+      { date: "2024-01-04", value: 1500 },
+      { date: "2024-01-05", value: 1700 },
+      { date: "2024-01-06", value: 1600 },
+      { date: "2024-01-07", value: 1800 },
+    ]);
+    setPieChartData([
+      { asset: "stocks", value: 400, fill: "var(--color-stocks)" },
+      { asset: "bonds", value: 300, fill: "var(--color-bonds)" },
+      { asset: "realestate", value: 300, fill: "var(--color-realestate)" },
+      { asset: "cash", value: 200, fill: "var(--color-cash)" },
+    ]);
+  }, []);
+
   return (
     <>
       <Explorer />
@@ -145,11 +149,7 @@ export default function FinancePage() {
                 <ChartContainer config={pieChartConfig} className="h-[250px] w-full">
                     <PieChart>
                         <ChartTooltip content={<ChartTooltipContent nameKey="value" />} />
-                        <Pie data={pieChartData} dataKey="value" nameKey="asset" cx="50%" cy="50%" outerRadius={100}>
-                            {pieChartData.map((entry) => (
-                                <Cell key={`cell-${entry.asset}`} fill={`var(--color-${entry.asset})`} />
-                            ))}
-                        </Pie>
+                        <Pie data={pieChartData} dataKey="value" nameKey="asset" cx="50%" cy="50%" outerRadius={100} />
                         <ChartLegend content={<ChartLegendContent nameKey="asset" />} />
                     </PieChart>
                 </ChartContainer>

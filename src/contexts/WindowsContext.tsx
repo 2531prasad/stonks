@@ -1,4 +1,3 @@
-// This file has been renamed to WindowsContext.tsx and its content has been updated.
 'use client';
 
 import type { ReactNode } from 'react';

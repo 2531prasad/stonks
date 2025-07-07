@@ -5,7 +5,7 @@ import { Rnd } from 'react-rnd';
 import { Card, CardHeader } from '@/components/ui/card';
 import { X, Minus, Square } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useWindows, type AppWindow } from '@/contexts/DashboardContext';
+import { useWindows, type AppWindow } from '@/contexts/WindowsContext';
 
 export function Explorer() {
   const { windows, closeWindow, focusWindow, updateWindow, getAppConfig } = useWindows();
