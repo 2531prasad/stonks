@@ -223,23 +223,22 @@ function ChartTooltipContent({
   )
 }
 const ChartLegend = RechartsPrimitive.Legend
-function ChartLegendContent({
-  className,
-  hideIcon = false,
-  payload,
-  verticalAlign = "bottom",
-  nameKey,
-}: React.ComponentProps<"div"> &
-  Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
-    hideIcon?: boolean
-    nameKey?: string
-  }) {
+
+const ChartLegendContent = React.forwardRef<
+  HTMLDivElement,
+  React.ComponentProps<"div"> &
+    Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
+      hideIcon?: boolean
+      nameKey?: string
+    }
+>(({ className, hideIcon = false, payload, verticalAlign = "bottom", nameKey }, ref) => {
   const { config } = useChart()
   if (!payload?.length) {
     return null
   }
   return (
     <div
+      ref={ref}
       className={cn(
         "flex items-center justify-center gap-4",
         verticalAlign === "top" ? "pb-3" : "pt-3",
@@ -251,7 +250,7 @@ function ChartLegendContent({
         const itemConfig = getPayloadConfigFromPayload(config, item, key)
         return (
           <div
-            key={item.value}
+            key={item.value as string}
             className={cn(
               "[&>svg]:text-muted-foreground flex items-center gap-1.5 [&>svg]:h-3 [&>svg]:w-3"
             )}
@@ -272,7 +271,9 @@ function ChartLegendContent({
       })}
     </div>
   )
-}
+});
+ChartLegendContent.displayName = "ChartLegendContent"
+
 // Helper to extract item config from a payload.
 function getPayloadConfigFromPayload(
   config: ChartConfig,
