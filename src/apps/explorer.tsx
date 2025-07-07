@@ -7,6 +7,7 @@ import { Card, CardHeader } from '@/components/ui/card';
 import { X, Minus, Square } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useWindows, type AppWindow } from '@/contexts/WindowsContext';
+import { cn } from '@/lib/utils';
 
 export function Explorer() {
   const { windows, closeWindow, focusWindow, updateWindow, getAppConfig } = useWindows();
@@ -61,7 +62,7 @@ export function Explorer() {
         const appConfig = getAppConfig(win.appKey);
         if (!appConfig) return null;
 
-        const App = appConfig.component;
+        const App = app.component;
         const title = appConfig.title;
         const hasChrome = (appConfig as any).chrome !== 'none';
         
@@ -88,11 +89,15 @@ export function Explorer() {
             cancel="input,textarea,button,select,option"
           >
             <Card 
-              className="drag-handle h-full w-full flex flex-col bg-card border-border text-card-foreground rounded-lg overflow-hidden shadow-2xl shadow-black/40 relative"
+              className={cn(
+                "h-full w-full flex flex-col text-card-foreground rounded-lg overflow-hidden shadow-2xl shadow-black/40 relative border-border",
+                !hasChrome && "drag-handle",
+                hasChrome ? "bg-card/60" : "bg-card"
+              )}
               onMouseDownCapture={() => focusWindow(win.id)}
             >
               {hasChrome ? (
-                <CardHeader className="cursor-move flex flex-row items-center justify-between p-2 border-b border-neutral-700/50 h-8">
+                <CardHeader className="drag-handle cursor-move flex flex-row items-center justify-between p-2 border-b border-neutral-700/50 h-8">
                   <p className="text-xs text-neutral-400 pl-2">{title}</p>
                   <div className="flex items-center gap-1">
                     <Button variant="ghost" size="icon" className="h-6 w-6 text-neutral-400 hover:bg-neutral-700 hover:text-white rounded-full" aria-label="Minimize">
