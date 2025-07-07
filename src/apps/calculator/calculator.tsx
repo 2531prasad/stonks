@@ -49,7 +49,7 @@ export function Calculator() {
 
   return (
     <div className="flex flex-col h-full w-full bg-transparent p-2">
-      <div className="flex-1 flex items-end justify-end p-4 bg-muted/50 rounded-t-md">
+      <div className="flex-1 flex items-end justify-end p-4 bg-black rounded-t-md">
         <p className="text-4xl font-mono text-right break-all">{display}</p>
       </div>
       <form onSubmit={handleFormSubmit}>

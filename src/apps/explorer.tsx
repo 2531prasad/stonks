@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useRef } from 'react';
@@ -83,12 +84,13 @@ export function Explorer() {
             style={{ zIndex: win.zIndex, position: 'absolute' }}
             className="pointer-events-auto"
             bounds="#window-bounds"
+            cancel="input,textarea,button,select,option"
           >
             <Card 
-              className="h-full w-full flex flex-col bg-card/60 backdrop-blur-sm border border-border text-card-foreground rounded-lg overflow-hidden shadow-2xl shadow-black/40"
+              className="drag-handle h-full w-full flex flex-col bg-card border border-border text-card-foreground rounded-lg overflow-hidden shadow-2xl shadow-black/40"
               onMouseDownCapture={() => focusWindow(win.id)}
             >
-              <CardHeader className="drag-handle cursor-move flex flex-row items-center justify-between p-2 border-b border-neutral-700/50 h-8">
+              <CardHeader className="cursor-move flex flex-row items-center justify-between p-2 border-b border-neutral-700/50 h-8">
                 <p className="text-xs text-neutral-400 pl-2">{title}</p>
                 <div className="flex items-center gap-1">
                   <Button variant="ghost" size="icon" className="h-6 w-6 text-neutral-400 hover:bg-neutral-700 hover:text-white rounded-full" aria-label="Minimize">
