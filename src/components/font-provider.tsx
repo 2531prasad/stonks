@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
-type Font = 'azeret' | 'victor' | 'noto';
+export type Font = 'azeret' | 'victor' | 'noto';
 
 interface FontContextType {
   font: Font;
