@@ -59,10 +59,10 @@ export function Explorer() {
       className="absolute inset-0 overflow-hidden pointer-events-none"
     >
       {sortedWindows.map((win) => {
-        const appConfig = getAppConfig(win.appKey);
+        const appConfig = getApp.config(win.appKey);
         if (!appConfig) return null;
 
-        const App = app.component;
+        const App = appConfig.component;
         const title = appConfig.title;
         const hasChrome = (appConfig as any).chrome !== 'none';
         
