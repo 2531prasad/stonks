@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Input } from '@/components/ui/input';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { Button } from '@/components/ui/button';
 
 export function Calculator() {
   const [expression, setExpression] = useState('');
@@ -40,6 +41,12 @@ export function Calculator() {
     setExpression('');
   };
 
+  const handleClear = () => {
+    setExpression('');
+    setDisplay('0');
+    inputRef.current?.focus();
+  };
+
   useEffect(() => {
     if (!isMobile) {
       inputRef.current?.focus();
@@ -51,19 +58,24 @@ export function Calculator() {
       <div className="flex-1 flex items-end justify-end p-4 bg-black rounded-lg">
         <p className="text-4xl font-mono text-right break-all">{display}</p>
       </div>
-      <form onSubmit={handleFormSubmit}>
-        <Input
-          ref={inputRef}
-          type="text"
-          value={expression}
-          onChange={handleInputChange}
-          className="w-full text-lg h-12 rounded-none border-0"
-          placeholder="Type an expression..."
-          autoFocus={!isMobile}
-          spellCheck={false}
-          autoComplete="off"
-        />
-      </form>
+      <div className="flex items-center gap-2">
+        <form onSubmit={handleFormSubmit} className="flex-1">
+          <Input
+            ref={inputRef}
+            type="text"
+            value={expression}
+            onChange={handleInputChange}
+            className="w-full text-lg h-12 rounded-none border-0"
+            placeholder="Type an expression..."
+            autoFocus={!isMobile}
+            spellCheck={false}
+            autoComplete="off"
+          />
+        </form>
+        <Button onClick={handleClear} variant="destructive" className="h-12 px-4 text-lg font-bold">
+          AC
+        </Button>
+      </div>
     </div>
   );
 }
