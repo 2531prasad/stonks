@@ -63,6 +63,7 @@ export function Explorer() {
 
         const App = appConfig.component;
         const title = appConfig.title;
+        const hasChrome = (appConfig as any).chrome !== 'none';
         
         return (
           <Rnd
@@ -78,41 +79,58 @@ export function Explorer() {
                 position,
               });
             }}
-            minWidth={320}
-            minHeight={200}
+            minWidth={hasChrome ? 320 : 200}
+            minHeight={hasChrome ? 200 : 100}
             dragHandleClassName="drag-handle"
             style={{ zIndex: win.zIndex, position: 'absolute' }}
-            className="pointer-events-auto"
+            className="pointer-events-auto group"
             bounds="#window-bounds"
             cancel="input,textarea,button,select,option"
           >
             <Card 
-              className="drag-handle h-full w-full flex flex-col bg-card border border-border text-card-foreground rounded-lg overflow-hidden shadow-2xl shadow-black/40"
+              className="drag-handle h-full w-full flex flex-col bg-card border-border text-card-foreground rounded-lg overflow-hidden shadow-2xl shadow-black/40 relative"
               onMouseDownCapture={() => focusWindow(win.id)}
             >
-              <CardHeader className="cursor-move flex flex-row items-center justify-between p-2 border-b border-neutral-700/50 h-8">
-                <p className="text-xs text-neutral-400 pl-2">{title}</p>
-                <div className="flex items-center gap-1">
-                  <Button variant="ghost" size="icon" className="h-6 w-6 text-neutral-400 hover:bg-neutral-700 hover:text-white rounded-full" aria-label="Minimize">
-                    <Minus className="h-3 w-3" />
-                  </Button>
-                  <Button variant="ghost" size="icon" className="h-6 w-6 text-neutral-400 hover:bg-neutral-700 hover:text-white rounded-full" aria-label="Maximize">
-                    <Square className="h-3 w-3" />
-                  </Button>
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    className="h-6 w-6 text-neutral-400 hover:bg-red-500 hover:text-white rounded-full"
+              {hasChrome ? (
+                <CardHeader className="cursor-move flex flex-row items-center justify-between p-2 border-b border-neutral-700/50 h-8">
+                  <p className="text-xs text-neutral-400 pl-2">{title}</p>
+                  <div className="flex items-center gap-1">
+                    <Button variant="ghost" size="icon" className="h-6 w-6 text-neutral-400 hover:bg-neutral-700 hover:text-white rounded-full" aria-label="Minimize">
+                      <Minus className="h-3 w-3" />
+                    </Button>
+                    <Button variant="ghost" size="icon" className="h-6 w-6 text-neutral-400 hover:bg-neutral-700 hover:text-white rounded-full" aria-label="Maximize">
+                      <Square className="h-3 w-3" />
+                    </Button>
+                    <Button 
+                      variant="ghost" 
+                      size="icon" 
+                      className="h-6 w-6 text-neutral-400 hover:bg-red-500 hover:text-white rounded-full"
+                      aria-label="Close"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        closeWindow(win.id);
+                      }}
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </CardHeader>
+              ) : (
+                <div className="absolute top-2 right-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-6 w-6 bg-black/30 hover:bg-red-500 text-neutral-400 hover:text-white rounded-full"
                     aria-label="Close"
                     onClick={(e) => {
                       e.stopPropagation();
                       closeWindow(win.id);
                     }}
                   >
-                    <X className="h-4 w-4" />
+                    <X className="h-3 w-3" />
                   </Button>
                 </div>
-              </CardHeader>
+              )}
               <div className="flex-1 overflow-hidden">
                 <App />
               </div>

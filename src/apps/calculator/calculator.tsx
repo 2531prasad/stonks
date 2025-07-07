@@ -48,8 +48,8 @@ export function Calculator() {
   }, [isMobile]);
 
   return (
-    <div className="flex flex-col h-full w-full bg-transparent p-2">
-      <div className="flex-1 flex items-end justify-end p-4 bg-black rounded-t-md">
+    <div className="flex flex-col h-full w-full bg-transparent">
+      <div className="flex-1 flex items-end justify-end p-4 bg-black">
         <p className="text-4xl font-mono text-right break-all">{display}</p>
       </div>
       <form onSubmit={handleFormSubmit}>
@@ -58,7 +58,7 @@ export function Calculator() {
           type="text"
           value={expression}
           onChange={handleInputChange}
-          className="w-full text-lg rounded-t-none h-12"
+          className="w-full text-lg h-12"
           placeholder="Type an expression..."
           autoFocus={!isMobile}
           spellCheck={false}

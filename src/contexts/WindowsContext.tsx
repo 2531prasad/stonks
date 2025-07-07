@@ -23,6 +23,7 @@ const appRegistry = {
     component: Calculator,
     defaultSize: { width: 320, height: 420 },
     title: 'Calculator',
+    chrome: 'none',
   },
 };
 
