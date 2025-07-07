@@ -36,6 +36,7 @@ import { StarsBackground } from '@/components/ui/stars-background';
 import { ShootingStars } from '../ui/shooting-stars';
 import { useWindows } from '@/contexts/WindowsContext';
 import { HeaderRight } from './HeaderRight';
+import { BackgroundBlobs } from '../ui/background-blobs';
 
 const mainNavItems = [
   { href: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
@@ -80,8 +81,9 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider open={!isCollapsed}>
       <div className="relative flex flex-col h-screen w-full bg-background">
+        <BackgroundBlobs />
         <StarsBackground />
-        <ShootingStars />
+        <ShootingStars minDelay={5000} maxDelay={15000} />
         <header className="flex h-14 shrink-0 items-center gap-4 border-b bg-transparent px-4 sm:px-6 z-10">
           <div className="hidden md:block">
             <h1 className="text-lg font-semibold">Dashboard</h1>
