@@ -90,6 +90,17 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
         </header>
 
         <div className="relative flex-1 overflow-hidden min-h-0">
+          <div
+            id="window-bounds"
+            style={{
+              position: 'absolute',
+              top: '0',
+              left: '-100vw',
+              width: '300vw',
+              height: '300vh',
+              pointerEvents: 'none',
+            }}
+          />
           <Rnd
             size={{ width: sidebarWidth, height: '100%' }}
             position={{ x: 0, y: 0 }}
