@@ -1,4 +1,3 @@
-
 "use client"
 import * as React from "react"
 import * as RechartsPrimitive from "recharts"
@@ -103,7 +102,7 @@ function ChartTooltipContent({
   color,
   nameKey,
   labelKey,
-}: React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
+}: RechartsPrimitive.TooltipProps<any, any> &
   React.ComponentProps<"div"> & {
     hideLabel?: boolean
     hideIndicator?: boolean
