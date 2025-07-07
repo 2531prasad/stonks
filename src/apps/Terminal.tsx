@@ -1,12 +1,14 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 export function Terminal() {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState<string[]>(['Welcome to the terminal!', 'Type `help` for a list of commands.']);
   const contentRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const isMobile = useIsMobile();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
@@ -44,14 +46,16 @@ export function Terminal() {
     if (contentRef.current) {
         contentRef.current.scrollTop = contentRef.current.scrollHeight;
     }
-    if (document.activeElement !== inputRef.current) {
+    if (document.activeElement !== inputRef.current && !isMobile) {
         inputRef.current?.focus();
     }
-  }, [output]);
+  }, [output, isMobile]);
 
   useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
+    if (!isMobile) {
+      inputRef.current?.focus();
+    }
+  }, [isMobile]);
 
   return (
     <div 
@@ -73,6 +77,8 @@ export function Terminal() {
           onChange={handleInputChange}
           className="bg-transparent border-none outline-none text-neutral-300 w-full pl-2"
           autoComplete="off"
+          autoCorrect="off"
+          spellCheck={false}
         />
       </form>
     </div>

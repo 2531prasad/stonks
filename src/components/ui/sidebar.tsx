@@ -536,10 +536,10 @@ function SidebarMenuButton({
       >
         {icon}
       </div>
-      <span className="w-full truncate whitespace-nowrap text-center font-sans text-[11px] font-light text-foreground group-data-[collapsible=icon]:block group-data-[state=expanded]:hidden">
+      <span className="w-full truncate whitespace-nowrap text-center font-sans text-[11px] font-normal text-foreground group-data-[collapsible=icon]:block group-data-[state=expanded]:hidden">
         {label}
       </span>
-      <span className="w-full truncate font-sans font-light group-data-[collapsible=icon]:hidden">
+      <span className="w-full truncate font-sans font-normal group-data-[collapsible=icon]:hidden">
         {label}
       </span>
     </>

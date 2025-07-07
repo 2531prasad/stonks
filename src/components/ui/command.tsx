@@ -50,6 +50,8 @@ const CommandInput = React.forwardRef<
         className
       )}
       {...props}
+      autoCorrect="off"
+      spellCheck={false}
     />
   </div>
 ))

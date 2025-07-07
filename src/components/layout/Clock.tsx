@@ -14,7 +14,7 @@ const Clock = () => {
 
   if (!time) {
     return (
-      <div className="flex w-[70px] justify-end items-center text-sm font-mono text-muted-foreground">
+      <div className="flex w-[70px] justify-end items-center text-sm font-mono tabular-nums text-muted-foreground">
         <span>--:--:--</span>
       </div>
     );
@@ -33,7 +33,7 @@ const Clock = () => {
   };
 
   return (
-    <div className="flex w-[70px] justify-end items-center gap-0.5 text-sm font-mono text-muted-foreground">
+    <div className="flex w-[70px] justify-end items-center gap-0.5 text-sm font-mono tabular-nums text-muted-foreground">
       <span className="flex">{renderDigits(hours)}</span>
       <span>:</span>
       <span className="flex">{renderDigits(minutes)}</span>

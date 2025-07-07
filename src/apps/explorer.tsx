@@ -91,16 +91,17 @@ export function Explorer() {
               <CardHeader className="drag-handle cursor-move flex flex-row items-center justify-between p-2 border-b border-neutral-700 h-8">
                 <p className="text-xs text-neutral-400 pl-2">{title}</p>
                 <div className="flex items-center gap-1">
-                  <Button variant="ghost" size="icon" className="h-6 w-6 text-neutral-400 hover:bg-neutral-700 hover:text-white rounded-full">
+                  <Button variant="ghost" size="icon" className="h-6 w-6 text-neutral-400 hover:bg-neutral-700 hover:text-white rounded-full" aria-label="Minimize">
                     <Minus className="h-3 w-3" />
                   </Button>
-                  <Button variant="ghost" size="icon" className="h-6 w-6 text-neutral-400 hover:bg-neutral-700 hover:text-white rounded-full">
+                  <Button variant="ghost" size="icon" className="h-6 w-6 text-neutral-400 hover:bg-neutral-700 hover:text-white rounded-full" aria-label="Maximize">
                     <Square className="h-3 w-3" />
                   </Button>
                   <Button 
                     variant="ghost" 
                     size="icon" 
-                    className="h-6 w-6 text-neutral-400 hover:bg-red-500 hover:text-white rounded-full" 
+                    className="h-6 w-6 text-neutral-400 hover:bg-red-500 hover:text-white rounded-full"
+                    aria-label="Close"
                     onClick={(e) => {
                       e.stopPropagation();
                       closeWindow(win.id);
