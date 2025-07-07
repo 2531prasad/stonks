@@ -1,3 +1,4 @@
+
 'use client';
 
 import type { ReactNode } from 'react';
@@ -10,12 +11,18 @@ import React, {
 } from 'react';
 
 import { Terminal } from '@/apps/Terminal';
+import { Calculator } from '@/apps/calculator/calculator';
 
 const appRegistry = {
   terminal: {
     component: Terminal,
     defaultSize: { width: 640, height: 400 },
     title: 'Terminal',
+  },
+  calculator: {
+    component: Calculator,
+    defaultSize: { width: 320, height: 420 },
+    title: 'Calculator',
   },
 };
 

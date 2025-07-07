@@ -1,7 +1,9 @@
+
 'use client';
 
 import {
   Book,
+  Calculator,
   Cpu,
   LayoutDashboard,
   LogOut,
@@ -212,6 +214,13 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
             >
               <Cpu className="mr-2 h-4 w-4" />
               <span>Summon Terminal</span>
+            </CommandItem>
+            <CommandItem
+              value="calculator"
+              onSelect={() => runCommand(() => openWindow('calculator'))}
+            >
+              <Calculator className="mr-2 h-4 w-4" />
+              <span>Open Calculator</span>
             </CommandItem>
           </CommandGroup>
           <CommandSeparator />
