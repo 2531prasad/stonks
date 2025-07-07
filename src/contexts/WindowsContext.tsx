@@ -89,12 +89,17 @@ export function WindowsProvider({ children }: { children: ReactNode }) {
           );
         }
 
+        const sidebarWidth = 72; // Approximate width of the collapsed sidebar
+        const headerHeight = 56; // Height of the top header
+        const contentWidth = window.innerWidth - sidebarWidth;
+        const contentHeight = window.innerHeight - headerHeight;
+        
         const newWindow: AppWindow = {
           id: `${appKey}-${Date.now()}`,
           appKey: appKey,
           position: {
-            x: window.innerWidth / 2 - appConfig.defaultSize.width / 2,
-            y: Math.max(0, window.innerHeight / 2 - appConfig.defaultSize.height / 2 - 56),
+            x: (contentWidth / 2) - (appConfig.defaultSize.width / 2),
+            y: Math.max(0, (contentHeight / 2) - (appConfig.defaultSize.height / 2)),
           },
           size: appConfig.defaultSize,
           zIndex: getNextZIndex(currentWindows),

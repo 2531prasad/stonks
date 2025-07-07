@@ -85,7 +85,7 @@ export function Explorer() {
             bounds="#window-bounds"
           >
             <Card 
-              className="h-full w-full flex flex-col bg-black/80 backdrop-blur-md border-white/10 text-neutral-200 rounded-lg overflow-hidden shadow-2xl shadow-black/50"
+              className="h-full w-full flex flex-col bg-card/90 backdrop-blur-sm border-border/20 text-card-foreground rounded-lg overflow-hidden shadow-2xl shadow-black/40"
               onMouseDownCapture={() => focusWindow(win.id)}
             >
               <CardHeader className="drag-handle cursor-move flex flex-row items-center justify-between p-2 border-b border-neutral-700/50 h-8">
