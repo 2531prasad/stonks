@@ -1,3 +1,4 @@
+
 "use client";
 import { cn } from "@/lib/utils";
 import React, {
@@ -66,9 +67,10 @@ export const StarsBackground: React.FC<StarBackgroundProps> = ({
   );
 
   useEffect(() => {
+    const canvasElement = canvasRef.current;
     const updateStars = () => {
-      if (canvasRef.current) {
-        const canvas = canvasRef.current;
+      if (canvasElement) {
+        const canvas = canvasElement;
         const ctx = canvas.getContext("2d");
         if (!ctx) return;
 
@@ -82,23 +84,16 @@ export const StarsBackground: React.FC<StarBackgroundProps> = ({
     updateStars();
 
     const resizeObserver = new ResizeObserver(updateStars);
-    if (canvasRef.current) {
-      resizeObserver.observe(canvasRef.current);
+    if (canvasElement) {
+      resizeObserver.observe(canvasElement);
     }
 
     return () => {
-      if (canvasRef.current) {
-        resizeObserver.unobserve(canvasRef.current);
+      if (canvasElement) {
+        resizeObserver.unobserve(canvasElement);
       }
     };
-  }, [
-    starDensity,
-    allStarsTwinkle,
-    twinkleProbability,
-    minTwinkleSpeed,
-    maxTwinkleSpeed,
-    generateStars,
-  ]);
+  }, [generateStars]);
 
   useEffect(() => {
     const canvas = canvasRef.current;

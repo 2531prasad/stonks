@@ -28,7 +28,7 @@ export function Calculator() {
         return 'Error';
       }
       return result.toString();
-    } catch (error) {
+    } catch (_error) {
       return 'Error';
     }
   };

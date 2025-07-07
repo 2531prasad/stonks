@@ -1,6 +1,7 @@
+
 'use client'
 
-import { Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, Line, LineChart, Pie, PieChart, ResponsiveContainer, XAxis, YAxis } from "recharts"
+import { Area, AreaChart, Bar, BarChart, CartesianGrid, Line, LineChart, Pie, PieChart, XAxis, YAxis } from "recharts"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent, ChartConfig } from "@/components/ui/chart"
 import { Explorer } from "@/apps/explorer"
@@ -38,11 +39,33 @@ const pieChartConfig = {
     cash: { label: "Cash", color: "hsl(var(--chart-4))" },
 } satisfies ChartConfig
 
+interface BarChartData {
+  name: string;
+  total: number;
+}
+
+interface LineChartData {
+  month: string;
+  desktop: number;
+  mobile: number;
+}
+
+interface AreaChartData {
+  date: string;
+  value: number;
+}
+
+interface PieChartData {
+  asset: string;
+  value: number;
+  fill: string;
+}
+
 export default function FinancePage() {
-  const [barChartData, setBarChartData] = React.useState<any[]>([]);
-  const [lineChartData, setLineChartData] = React.useState<any[]>([]);
-  const [areaChartData, setAreaChartData] = React.useState<any[]>([]);
-  const [pieChartData, setPieChartData] = React.useState<any[]>([]);
+  const [barChartData, setBarChartData] = React.useState<BarChartData[]>([]);
+  const [lineChartData, setLineChartData] = React.useState<LineChartData[]>([]);
+  const [areaChartData, setAreaChartData] = React.useState<AreaChartData[]>([]);
+  const [pieChartData, setPieChartData] = React.useState<PieChartData[]>([]);
 
   React.useEffect(() => {
     setBarChartData([

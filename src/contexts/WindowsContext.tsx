@@ -13,7 +13,14 @@ import React, {
 import { Terminal } from '@/apps/Terminal';
 import { Calculator } from '@/apps/calculator/calculator';
 
-const appRegistry = {
+interface AppConfig {
+  component: React.ComponentType;
+  defaultSize: { width: number | string; height: number | string };
+  title: string;
+  chrome?: 'none';
+}
+
+const appRegistry: Record<string, AppConfig> = {
   terminal: {
     component: Terminal,
     defaultSize: { width: 640, height: 400 },
@@ -43,9 +50,7 @@ interface WindowsContextType {
   closeWindow: (id: string) => void;
   focusWindow: (id: string) => void;
   updateWindow: (id: string, updates: Partial<AppWindow>) => void;
-  getAppConfig: (
-    appKey: AppKey
-  ) => (typeof appRegistry)[keyof typeof appRegistry];
+  getAppConfig: (appKey: AppKey) => AppConfig;
 }
 
 const WindowsContext = createContext<WindowsContextType | undefined>(undefined);
@@ -106,8 +111,8 @@ export function WindowsProvider({ children }: { children: ReactNode }) {
           id: `${appKey}-${Date.now()}`,
           appKey: appKey,
           position: {
-            x: (contentWidth / 2) - (appConfig.defaultSize.width / 2),
-            y: Math.max(0, (contentHeight / 2) - (appConfig.defaultSize.height / 2)),
+            x: (contentWidth / 2) - (appConfig.defaultSize.width as number / 2),
+            y: Math.max(0, (contentHeight / 2) - (appConfig.defaultSize.height as number / 2)),
           },
           size: appConfig.defaultSize,
           zIndex: getNextZIndex(currentWindows),

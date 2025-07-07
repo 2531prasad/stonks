@@ -15,13 +15,12 @@ export function Explorer() {
 
   const sortedWindows = [...windows].sort((a, b) => a.zIndex - b.zIndex);
 
-  const handleDragStop = (win: AppWindow, e: any, d: { x: number; y: number }) => {
-    let newPosition = { x: d.x, y: d.y };
+  const handleDragStop = (win: AppWindow, _e: unknown, d: { x: number; y: number }) => {
+    const newPosition = { x: d.x, y: d.y };
 
     if (explorerRef.current) {
       const bounds = explorerRef.current.getBoundingClientRect();
       const winWidth = parseFloat(win.size.width.toString());
-      const winHeight = parseFloat(win.size.height.toString());
 
       const visibleMargin = 60; // Pixels of the window that must remain visible
 
@@ -64,7 +63,7 @@ export function Explorer() {
 
         const App = appConfig.component;
         const title = appConfig.title;
-        const hasChrome = (appConfig as any).chrome !== 'none';
+        const hasChrome = appConfig.chrome !== 'none';
         
         return (
           <Rnd

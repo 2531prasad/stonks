@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Bell, Palette, Search, User } from 'lucide-react';
@@ -10,7 +11,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useFont } from '@/components/font-provider';
+import { useFont, type Font } from '@/components/font-provider';
 import Clock from './Clock';
 
 interface HeaderRightProps {
@@ -48,7 +49,7 @@ export function HeaderRight({ setOpenCommand }: HeaderRightProps) {
         <DropdownMenuContent align="end">
           <DropdownMenuRadioGroup
             value={font}
-            onValueChange={(value) => setFont(value as any)}
+            onValueChange={(value) => setFont(value as Font)}
           >
             <DropdownMenuRadioItem value="azeret">
               Azeret Mono
