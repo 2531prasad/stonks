@@ -39,7 +39,6 @@ export function Explorer() {
             }}
             minWidth={320}
             minHeight={200}
-            bounds="parent"
             dragHandleClassName="drag-handle"
             style={{ zIndex: win.zIndex, position: 'absolute' }}
             className="pointer-events-auto"
