@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -65,14 +66,14 @@ export function Calculator() {
             type="text"
             value={expression}
             onChange={handleInputChange}
-            className="w-full text-lg h-12 rounded-none border-0"
+            className="w-full text-lg h-12 rounded-lg border-0"
             placeholder="Type an expression..."
             autoFocus={!isMobile}
             spellCheck={false}
             autoComplete="off"
           />
         </form>
-        <Button onClick={handleClear} variant="destructive" className="h-12 px-4 text-lg font-bold">
+        <Button onClick={handleClear} variant="destructive" className="h-12 px-4 text-lg font-bold rounded-lg">
           AC
         </Button>
       </div>
