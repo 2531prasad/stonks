@@ -81,7 +81,7 @@ export function Explorer() {
             minHeight={200}
             dragHandleClassName="drag-handle"
             style={{ zIndex: win.zIndex, position: 'absolute' }}
-            className="pointer-events-auto animate-in fade-in-90 zoom-in-95 duration-300"
+            className="pointer-events-auto"
             bounds="#window-bounds"
           >
             <Card 
