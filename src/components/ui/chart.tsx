@@ -1,7 +1,11 @@
+
 "use client"
 import * as React from "react"
 import * as RechartsPrimitive from "recharts"
 import { cn } from "@/lib/utils"
+import type { TooltipProps } from "recharts"
+import type { LegendProps } from "recharts"
+
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const
 export type ChartConfig = {
@@ -16,6 +20,10 @@ export type ChartConfig = {
 type ChartContextProps = {
   config: ChartConfig
 }
+
+type ValueType = string | number | (string | number)[]
+type NameType = string | number
+
 const ChartContext = React.createContext<ChartContextProps | null>(null)
 function useChart() {
   const context = React.useContext(ChartContext)
@@ -88,6 +96,7 @@ ${colorConfig
   )
 }
 const ChartTooltip = RechartsPrimitive.Tooltip
+
 function ChartTooltipContent({
   active,
   payload,
@@ -102,7 +111,7 @@ function ChartTooltipContent({
   color,
   nameKey,
   labelKey,
-}: RechartsPrimitive.TooltipProps<any, any> &
+}: TooltipProps<ValueType, NameType> &
   React.ComponentProps<"div"> & {
     hideLabel?: boolean
     hideIndicator?: boolean
@@ -226,8 +235,7 @@ const ChartLegend = RechartsPrimitive.Legend
 
 const ChartLegendContent = React.forwardRef<
   HTMLDivElement,
-  React.ComponentProps<"div"> &
-    Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
+  React.ComponentProps<"div"> & Pick<LegendProps, "payload" | "verticalAlign"> & {
       hideIcon?: boolean
       nameKey?: string
     }
