@@ -1,19 +1,61 @@
 'use client';
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { Rnd } from 'react-rnd';
 import { Card, CardHeader } from '@/components/ui/card';
 import { X, Minus, Square } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useWindows } from '@/contexts/DashboardContext';
+import { useWindows, type AppWindow } from '@/contexts/DashboardContext';
 
 export function Explorer() {
   const { windows, closeWindow, focusWindow, updateWindow, getAppConfig } = useWindows();
+  const explorerRef = useRef<HTMLDivElement>(null);
 
   const sortedWindows = [...windows].sort((a, b) => a.zIndex - b.zIndex);
 
+  const handleDragStop = (win: AppWindow, e: any, d: { x: number; y: number }) => {
+    let newPosition = { x: d.x, y: d.y };
+
+    if (explorerRef.current) {
+      const bounds = explorerRef.current.getBoundingClientRect();
+      const winWidth = parseFloat(win.size.width.toString());
+      const winHeight = parseFloat(win.size.height.toString());
+
+      const visibleMargin = 60; // Pixels of the window that must remain visible
+
+      // Check left boundary
+      if (d.x + winWidth < visibleMargin) {
+        newPosition.x = visibleMargin - winWidth;
+      }
+
+      // Check right boundary
+      if (d.x > bounds.width - visibleMargin) {
+        newPosition.x = bounds.width - visibleMargin;
+      }
+
+      // Check bottom boundary
+      if (d.y > bounds.height - visibleMargin) {
+        newPosition.y = bounds.height - visibleMargin;
+      }
+      
+      // Top boundary is already handled by #window-bounds, but let's be safe.
+      if (d.y < 0) {
+        newPosition.y = 0;
+      }
+
+      updateWindow(win.id, { position: newPosition });
+    } else {
+      // Fallback if ref isn't available
+      updateWindow(win.id, { position: newPosition });
+    }
+  };
+
+
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+    <div
+      ref={explorerRef}
+      className="absolute inset-0 overflow-hidden pointer-events-none"
+    >
       {sortedWindows.map((win) => {
         const appConfig = getAppConfig(win.appKey);
         if (!appConfig) return null;
@@ -27,9 +69,7 @@ export function Explorer() {
             size={win.size}
             position={win.position}
             onDragStart={() => focusWindow(win.id)}
-            onDragStop={(e, d) => {
-              updateWindow(win.id, { position: { x: d.x, y: d.y } });
-            }}
+            onDragStop={(e, d) => handleDragStop(win, e, d)}
             onResizeStart={() => focusWindow(win.id)}
             onResizeStop={(e, direction, ref, delta, position) => {
               updateWindow(win.id, {
