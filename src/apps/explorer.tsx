@@ -59,7 +59,7 @@ export function Explorer() {
       className="absolute inset-0 overflow-hidden pointer-events-none"
     >
       {sortedWindows.map((win) => {
-        const appConfig = getApp.config(win.appKey);
+        const appConfig = getAppConfig(win.appKey);
         if (!appConfig) return null;
 
         const App = appConfig.component;
